@@ -1,0 +1,339 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+
+{
+  "COLLECTION":{
+    "label": "Pesquisa PIPE DENEGADOS 2018",
+    "omite_secoes": ["refine", "documentos", "related_collections" ,"pivot_table", "gather_nodes","docs_snippet","busca","sankey","bubblechart","stackedbarchart"],
+    "campo_dinamico_busca": "cross_collection_pipe_denegados"
+  },
+
+  "FACETS":[
+            {"groupBy": {"id": "situacao", "label": "Situação da empresa solicitante do projeto PIPE-FAPESP", "order": 0},
+               "facetGroup": [
+                   {"label": "Situação da empresa solicitante do projeto PIPE-FAPESP", "render": "barChart_1", "facets": [{"chave": "situacao_empresa", "label": "Situação da empresa"}]},
+                   {"label": "", "render": "", "facets": [{"chave": "ano_da_habilitacao_facet", "label": "Ano de habilitação do processo"}]}
+               ]},
+
+            {"groupBy": {"id": "respondente", "label": "Dados do Respondente do Questionário", "order": 1},
+             "facetGroup": [
+                 {"label": "Continua vinculado a empresa", "render": "halfPieChart", "facets": [{"chave": "continua_vinculado", "label": "Continua vinculado a empresa"}]},
+                 {"label": "Cargo Atual na empresa", "render": "barChart_1", "facets": [{"chave": "cargo_atual", "label": "Cargo Atual na empresa"}]},
+                 {"label": "Cargo na empresa no momento da submissão", "render": "barChart_1", "facets": [{"chave": "cargo_na_sub", "label": "Cargo na empresa no momento da submissão"}]}
+             ]},
+
+            {"groupBy": {"id": "desen_proj", "label": "Desenvolvimento do projeto submetido ao PIPE", "order": 2},
+             "facetGroup": [
+                 {"label": "Desenvolvimento do projeto submetido ao PIPE", "render": "halfPieChart", "facets": [{"chave": "desenv_proj", "label": "Desenvolvimento do projeto submetido ao PIPE"}]}
+             ]},
+
+            {"groupBy": {"id": "ident_emp", "label": "Dados de identificação da empresa", "order": 3},
+             "facetGroup": [
+                 {"label": "Ano de criação da empresa", "render": "barChart_1", "facets": [{"chave": "ano_inicio_ops_facet", "label": "Ano de criação da empresa"}]},
+                 {"label": "", "render": "", "facets": [{"chave": "geografico_facet", "label": "Geografico da Sede"}]},
+                 {"label": "Estado da sede", "render": "barChart_1", "facets": [{"chave": "uf_sede", "label": "Estado da Sede"}]},
+                 {"label": "Empresa incubada", "render": "halfPieChart", "facets": [{"chave": "empresa_incubada", "label": "Empresa incubada"}]},
+                 {"label": "Empresa é Spinoff", "render": "halfPieChart", "facets": [{"chave": "spinoff", "label": "Empresa é Spinoff"}]},
+                 {"label": "Tipo de organizacao do spinoff", "render": "barChart_1", "facets": [{"chave": "tipo_spinoff", "label": "Tipo de organizacao do spinoff"}]}
+             ]},
+
+            {"groupBy": {"id": "CNAE", "label": "CNAE", "order": 4},
+             "facetGroup": [
+                 {"label": "CNAE da empresa", "render": "barChart_1", "facets": [{"chave": "cnae_facet", "label": "CNAE da empresa"}]},
+                 {"label": "Seção CNAE da empresa", "render": "barChart_1", "facets": [{"chave": "cnae_secao__descricao", "label": "Seção CNAE da empresa"}]},
+                 {"label": "Divisão CNAE da empresa", "render": "barChart_1", "facets": [{"chave": "cnae_divisao__descricao", "label": "Divisão CNAE da empresa"}]},
+                 {"label": "Grupo CNAE da empresa", "render": "barChart_1", "facets": [{"chave": "cnae_grupo__descricao", "label": "Grupo CNAE da empresa"}]}
+             ]},
+
+            {"groupBy": {"id": "ident_pesq", "label": "Dados do Pesquisador", "order": 5},
+             "facetGroup": [
+                 {"label": "Sexo do Pesquisador", "render": "halfPieChart", "facets": [{"chave": "sexo", "label": "Sexo do Pesquisador"}]},
+                 {"label": "Escolaridade do Pesquisador", "render": "barChart_1", "facets": [{"chave": "escolaridade", "label": "Escolaridade do Pesquisador"}]}
+             ]},
+
+            {"groupBy": {"id": "gastospd", "label": "Gastos com Pesquisa e Desenvolvimento", "order": 6},
+             "facetGroup": [
+                 {"label": "Gastos P&D 2 anos antes", "render": "barChart_1", "facets": [{"chave": "gasto_pd_antes_2", "label": "Gastos P&D 2 anos antes"}]},
+                 {"label": "Gastos P&D 1 ano antes", "render": "barChart_1", "facets": [{"chave": "gasto_pd_antes_1", "label": "Gastos P&D 1 ano antes"}]},
+                 {"label": "Gastos P&D 4 anos após", "render": "barChart_1", "facets": [{"chave": "gasto_pd_apos_4", "label": "Gastos P&D 4 anos após"}]},
+                 {"label": "Gastos P&D 5 anos após", "render": "barChart_1", "facets": [{"chave": "gasto_pd_apos_5", "label": "Gastos P&D 5 anos após"}]}
+             ]},
+
+            {"groupBy": {"id": "econtot_emp", "label": "Faturamento Total da empresa", "order": 7},
+             "facetGroup": [
+                 {"label": "Faturamento Total 2 anos antes", "render": "barChart_1", "facets": [{"chave": "faturamento_total_antes_2", "label": "Faturamento Total 2 anos antes"}]},
+                 {"label": "Faturamento Total 1 ano antes", "render": "barChart_1", "facets": [{"chave": "faturamento_total_antes_1", "label": "Faturamento Total 1 ano antes"}]},
+                 {"label": "Faturamento Total 4 anos após", "render": "barChart_1", "facets": [{"chave": "faturamento_total_apos_4", "label": "Faturamento Total 4 anos após"}]},
+                 {"label": "Faturamento Total 5 anos após", "render": "barChart_1", "facets": [{"chave": "faturamento_total_apos_5", "label": "Faturamento Total 5 anos após"}]}
+             ]},
+
+            {"groupBy": {"id": "econexp_emp", "label": "Faturamento com exportações da empresa", "order": 8},
+             "facetGroup": [
+                 {"label": "Faturamento com exportações 2 anos antes", "render": "barChart_1", "facets": [{"chave": "faturamento_exportacao_antes_2", "label": "Faturamento com exportações 2 anos antes"}]},
+                 {"label": "Faturamento com exportações 1 ano antes", "render": "barChart_1", "facets": [{"chave": "faturamento_exportacao_antes_1", "label": "Faturamento com exportações 1 ano antes"}]},
+                 {"label": "Faturamento com exportações 4 anos após", "render": "barChart_1", "facets": [{"chave": "faturamento_exportacao_apos_4", "label": "Faturamento com exportações 4 anos após"}]},
+                 {"label": "Faturamento com exportações 5 anos após", "render": "barChart_1", "facets": [{"chave": "faturamento_exportacao_apos_5", "label": "Faturamento com exportações 5 anos após"}]}
+             ]},
+
+            {"groupBy": {"id": "econaport_emp", "label": "Aportes de capital", "order": 9},
+             "facetGroup": [
+                 {"label": "Aportes de capital 2 anos antes", "render": "barChart_1", "facets": [{"chave": "aportes_antes_2", "label": "Aportes de capital 2 anos antes"}]},
+                 {"label": "Aportes de capital 1 ano antes", "render": "barChart_1", "facets": [{"chave": "aportes_antes_1", "label": "Aportes de capital 1 ano antes"}]},
+                 {"label": "Aportes de capital 4 anos após", "render": "barChart_1", "facets": [{"chave": "aportes_apos_4", "label": "Aportes de capital 4 anos após"}]},
+                 {"label": "Aportes de capital 5 anos após", "render": "barChart_1", "facets": [{"chave": "aportes_apos_5", "label": "Aportes de capital 5 anos após"}]}
+             ]},
+
+            {"groupBy": {"id": "pesstot_emp", "label": "Total de empregados da empresa", "order": 10},
+             "facetGroup": [
+                 {"label": "Total de empregados 2 anos antes", "render": "barChart_1", "facets": [{"chave": "total_empregados_antes_2", "label": "Total de empregados 2 anos antes"}]},
+                 {"label": "Total de empregados 1 ano antes", "render": "barChart_1", "facets": [{"chave": "total_empregados_antes_1", "label": "Total de empregados 1 ano antes"}]},
+                 {"label": "Total de empregados 4 anos após", "render": "barChart_1", "facets": [{"chave": "total_empregados_apos_4", "label": "Total de empregados 4 anos após"}]},
+                 {"label": "Total de empregados 5 anos após", "render": "barChart_1", "facets": [{"chave": "total_empregados_apos_5", "label": "Total de empregados 5 anos após"}]}
+
+             ]},
+
+            {"groupBy": {"id": "pesses_emp", "label": "Total de empregados com curso superior completo da empresa", "order": 11},
+             "facetGroup": [
+                 {"label": "Total de empregados com ES 2 anos antes", "render": "barChart_1", "facets": [{"chave": "empregados_sup_antes_2", "label": "Empregados com ES 2 anos antes"}]},
+                 {"label": "Total de empregados com ES 1 ano antes", "render": "barChart_1", "facets": [{"chave": "empregados_sup_antes_1", "label": "Empregados com ES 1 ano antes"}]},
+                 {"label": "Total de empregados com ES 4 anos após", "render": "barChart_1", "facets": [{"chave": "empregados_sup_apos_4", "label": "Empregados com ES 4 anos após"}]},
+                 {"label": "Total de empregados com ES 5 anos após", "render": "barChart_1", "facets": [{"chave": "empregados_sup_apos_5", "label": "Empregados com ES 5 anos após"}]}
+
+             ]},
+
+            {"groupBy": {"id": "pesspd_emp", "label": "Total de empregados alocados em P&D", "order": 12},
+             "facetGroup": [
+                 {"label": "Total de empregados em P&D 2 anos antes", "render": "barChart_1", "facets": [{"chave": "empregados_pd_antes_2", "label": "Empregados em P&D 2 anos antes"}]},
+                 {"label": "Total de empregados em P&D 1 ano antes", "render": "barChart_1", "facets": [{"chave": "empregados_pd_antes_1", "label": "Empregados em P&D 1 ano antes"}]},
+                 {"label": "Total de empregados em P&D 4 anos após", "render": "barChart_1", "facets": [{"chave": "empregados_pd_apos_4", "label": "Empregados em P&D 4 anos após"}]},
+                 {"label": "Total de empregados em P&D 5 anos após", "render": "barChart_1", "facets": [{"chave": "empregados_pd_apos_5", "label": "Empregados em P&D 5 anos após"}]}
+
+             ]},
+
+            {"groupBy": {"id": "prop_int_brasil", "label": "Número de depósitos de DPI  da empresa no Brasil", "order": 13},
+             "facetGroup": [
+                 {"label": "Patentes no Brasil", "render": "barChart_1", "facets": [{"chave": "brasil_nro_patentes", "label": "Patentes no Brasil"}]},
+                 {"label": "Software no Brasil", "render": "barChart_1", "facets": [{"chave": "brasil_nro_software", "label": "Softwares no Brasil"}]},
+                 {"label": "Registro de marca no Brasil", "render": "barChart_1", "facets": [{"chave": "brasil_nro_regmarcas", "label": "Registro de marcas no Brasil"}]},
+                 {"label": "Registro de circuitos eletrônicos no Brasil", "render": "barChart_1", "facets": [{"chave": "brasil_nro_topcirc", "label": "Registro de circuitos eletrônicos no Brasil"}]},
+                 {"label": "Registro de cultivares no Brasil", "render": "barChart_1", "facets": [{"chave": "brasil_nro_culplan", "label": "Registro de cultivares no Brasil"}]}
+             ]},
+
+            {"groupBy": {"id": "prop_int_exterior", "label": "Número de depósitos de DPI  da empresa no Exterior", "order": 14},
+             "facetGroup": [
+                 {"label": "Patentes no Exterior", "render": "barChart_1", "facets": [{"chave": "exterior_nro_patentes", "label": "Patentes no Exterior"}]},
+                 {"label": "Software no Exterior", "render": "barChart_1", "facets": [{"chave": "exterior_nro_software", "label": "Softwares no Exterior"}]},
+                 {"label": "Registro de marca no Exterior", "render": "barChart_1", "facets": [{"chave": "exterior_nro_regmarcas", "label": "Registro de marcas no Exterior"}]},
+                 {"label": "Registro de circuitos eletrônicos no Exterior", "render": "barChart_1", "facets": [{"chave": "exterior_nro_topcirc", "label": "Registro de circuitos eletrônicos no Exterior"}]},
+                 {"label": "Registro de cultivares no Exterior", "render": "barChart_1", "facets": [{"chave": "exterior_nro_culplan", "label": "Registro de cultivares no Exterior"}]}
+             ]},
+
+            {"groupBy": {"id": "nro_lin", "label": "Número de licenciamentos, acordos de transferência de tecnologia e royalties", "order": 15},
+             "facetGroup": [
+                 {"label": "Licenciamentos e acordos de transferencia", "render": "barChart_1", "facets": [{"chave": "registro_tranf", "label": "Licenciamentos e acordos de transferencia"}]},
+                 {"label": "Royalties", "render": "barChart_1", "facets": [{"chave": "royalties", "label": "Royalties"}]}
+             ]},
+
+            {"groupBy": {"id": "gov", "label": "Governança", "order": 16},
+             "facetGroup": [
+                 {"label": "Investimento em atividades de PDI", "render": "halfPieChart", "facets": [{"chave": "pdi_explicito", "label": "Investimento em atividades de PDI"}]},
+                 {"label": "Regras de Compliance", "render": "halfPieChart", "facets": [{"chave": "regras_compliance", "label": "Regras de Compliance"}]},
+                 {"label": "Modelos de gestão", "render": "halfPieChart", "facets": [{"chave": "modelos_gestao", "label": "Modelos de gestão"}]},
+                 {"label": "Organização das atividades de PDI", "render": "barChart_1", "facets": [{"chave": "organizacao_pdi", "label": "Organização das atividades de PDI"}]}
+             ]},
+
+            {"groupBy": {"id": "avalia", "label": "Avaliação ao PIPE", "order": 17},
+             "facetGroup": [
+                 {"label": "Documentação Base", "render": "halfPieChart", "facets": [{"chave": "doc_base", "label": "Documentação Base"}]},
+                 {"label": "Critérios para Candidatura", "render": "halfPieChart", "facets": [{"chave": "crit_cand", "label": "Critérios para Candidatura"}]},
+                 {"label": "Procedimento de seleção de projetos e informação de resultados", "render": "halfPieChart", "facets": [{"chave": "proc_selec", "label": "Seleção de projetos e informação de resultados"}]},
+                 {"label": "Tempo para seleção de projetos", "render": "halfPieChart", "facets": [{"chave": "tempo_selec", "label": "Tempo para seleção de projetos"}]}
+             ]}
+
+
+    ],
+
+    "OUTCOMES": [
+
+    ],
+
+    "EXPORT_DATA":{
+      //"campos do solr que irao ser exportados em arquivo, fields devem ser docvalues"
+      "export_fields" : ["id",
+                         "objeto_id",
+                         "ano_da_habilitacao",
+                         "ano_de_inicio_das_operacoes",
+                         "area_do_conhecimento",
+                         "area_empresarial_alugada_m2",
+                         "area_empresarial_construida_m2",
+                         "area_empresarial_propria_m2",
+                         "area_empresarial_terreno_m2",
+                         "beneficiario",
+                         "beneficiario_possui_aperfeicoamento",
+                         "beneficiario_possui_curso_tecnicoprofissionalizante",
+                         "beneficiario_possui_doutorado",
+                         "beneficiario_possui_especializacao",
+                         "beneficiario_possui_graduacao",
+                         "beneficiario_possui_livre_docencia",
+                         "beneficiario_possui_mestrado",
+                         "beneficiario_possui_mestrado_profissionalizante",
+                         "beneficiario_possui_pos_doutorado",
+                         "beneficiario_possui_residencia_medica",
+                         "cidade_da_unidade_de_vinculo",
+                         "cnpj_x",
+                         "cpf_do_beneficiario",
+                         "data_da_habilitacao",
+                         "email_do_responsavel",
+                         "faturamento_anual",
+                         "grande_area_do_conhecimento",
+                         "instituicao_de_vinculo",
+                         "link_bv_do_beneficiario",
+                         "link_google_scholar_do_beneficiario",
+                         "link_lattes_do_beneficiario",
+                         "link_orcid_do_beneficiario",
+                         "mao_de_obra_direta",
+                         "mao_de_obra_indireta",
+                         "mao_de_obra_total",
+                         "nome_razao_social",
+                         "participacao_de_capital_estrangeiro",
+                         "processo",
+                         "situacao_do_processo",
+                         "subarea_do_conhecimento",
+                         "tipo_de_financiamento",
+                         "titulo",
+                         "tramite",
+                         "uf_da_unidade_de_vinculo",
+                         "unidade_de_vinculo",
+                         "valor_solicitado_da_ultima_proposta_em_r",
+                         "valor_solicitado_da_ultima_proposta_em_us",
+                         "aportes_antes_1",
+                         "aportes_antes_2",
+                         "aportes_apos_4",
+                         "aportes_apos_5",
+                         "faturamento_exportacao_antes_1",
+                         "faturamento_exportacao_antes_2",
+                         "faturamento_exportacao_apos_4",
+                         "faturamento_exportacao_apos_5",
+                         "faturamento_total_antes_1",
+                         "faturamento_total_antes_2",
+                         "faturamento_total_apos_4",
+                         "faturamento_total_apos_5",
+                         "brasil_nro_culplan",
+                         "brasil_nro_desind",
+                         "brasil_nro_patentes",
+                         "brasil_nro_regmarcas",
+                         "brasil_nro_software",
+                         "brasil_nro_topcirc",
+                         "exterior_nro_culplan",
+                         "exterior_nro_desind",
+                         "exterior_nro_patentes",
+                         "exterior_nro_regmarcas",
+                         "exterior_nro_software",
+                         "exterior_nro_topcirc",
+                         "registro_tranf",
+                         "royalties",
+                         "data_nascimento",
+                         "escolaridade",
+                         "sexo",
+                         "empregados_pd_antes_1",
+                         "empregados_pd_antes_2",
+                         "empregados_pd_apos_4",
+                         "empregados_pd_apos_5",
+                         "empregados_sup_antes_1",
+                         "empregados_sup_antes_2",
+                         "empregados_sup_apos_4",
+                         "empregados_sup_apos_5",
+                         "total_empregados_antes_1",
+                         "total_empregados_antes_2",
+                         "total_empregados_apos_4",
+                         "total_empregados_apos_5",
+                         "situacao_empresa",
+                         "ano_inicio_ops",
+                         "cnae_divisao__descricao",
+                         "cnae_grupo__descricao",
+                         "cnae_secao__descricao",
+                         "cnpj_y",
+                         "empresa_incubada",
+                         "municipio_sede__municipio",
+                         "razao_social_atual",
+                         "spinoff",
+                         "tipo_spinoff",
+                         "uf_sede",
+                         "cargo_atual",
+                         "cargo_na_sub",
+                         "continua_vinculado",
+                         "desenv_proj",
+                         "nome_responsavel_quest",
+                         "nome_responsavel_sub",
+                         "telefones",
+                         "modelos_gestao",
+                         "organizacao_pdi",
+                         "pdi_explicito",
+                         "regras_compliance",
+                         "crit_cand",
+                         "doc_base",
+                         "melhorias1",
+                         "melhorias2",
+                         "melhorias3",
+                         "proc_selec",
+                         "tempo_selec",
+                         "melhorias",
+                         "gasto_pd_antes_1",
+                         "gasto_pd_antes_2",
+                         "gasto_pd_apos_4",
+                         "gasto_pd_apos_5",
+                         "parceria_inst",
+                         "parceria_n_inst"],
+      //"campo usado para ordenar resultados"
+      "export_sort_by" : "objeto_id" ,
+      //"campo usado para definir operador de ordenação"
+      "export_sort_op" : "desc",
+      //"limita numera maximo de documentos a serem exportados"
+        /* "max_rows" : "", */
+      // "Caso haja um unico campo pre-gerado para relatorio com todos os dados em formato csv, indicar o nome do campo."
+      "report_field" : "",
+      // "Caso seja determinado um campo pre-gerado acima, pode-se listar o nome das colunas. Caso contrario as colunas irao sem nome."
+      "column_names": [],
+
+    // "Colunas extras para o caso de algum controle de acesso etc."
+    "extra_column_names" :[]
+    },
+
+  "SANKEY_CHART":{
+  },
+  "PIVOT_TABLE":{
+  },
+
+  "BUBBLE_CHART": {
+    },
+
+    "MULTILEVEL_BARCHART_1":{
+    },
+    "WORDCLOUD_CHART":{
+        "single_facet": {"value": "melhorias_nuvem_palavras", "label": "Melhorias"},
+          "options": [
+              {"value": "melhorias_nuvem_palavras", "label": "Melhorias"}
+            ]
+    },
+    "BOXPLOT_CHART":{
+        "default_level_1": {"value": "modelos_gestao", "label": "Modelos de Gestão"},
+        "default_level_2": {"value": "faturamento_total_antes_1", "label": "Faturamento Total 1 ano antes"},
+        "options_x": [
+            {"value": "escolaridade", "label": "Escolaridade"},
+            {"value": "sexo", "label": "Sexo"},
+            {"value": "modelos_gestao", "label": "Modelos de Gestão"},
+            {"value": "pdi_explicito", "label": "PDI Explicito"},
+            {"value": "regras_compliance", "label": "Regras de Compliance"}
+        ],
+        "options_y": [
+            {"value": "faturamento_total_antes_1", "label": "Faturamento Total 1 ano antes"},
+            {"value": "faturamento_total_antes_2", "label": "Faturamento Total 2 ano antes"},
+            {"value": "faturamento_total_apos_4", "label": "Faturamento Total 4 ano após"},
+            {"value": "faturamento_total_apos_5", "label": "Faturamento Total 5 ano após"}
+        ]
+    }
+}

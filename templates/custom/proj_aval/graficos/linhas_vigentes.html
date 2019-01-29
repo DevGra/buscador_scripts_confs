@@ -1,0 +1,269 @@
+<section class="box pa0">
+	<header class="bv_header">
+    <span class="bv_h1">
+      <a class="fa_angle_link" style="cursor:pointer;">
+        <span style="color:white;">
+					{% if sigla_idioma = 'pt'%}
+		        Projetos de pesquisa vigentes por ano 2
+		      {% elif sigla_idioma = 'en'%}
+		        Funded research projects, by year
+		      {% endif %}
+        </span>
+        <i class="fa fa-angle-up fa_angle_Style" style="float:right;"></i>
+      </a>
+    </span>
+	</header>
+
+	<div id="linhas_vigentes_div" class="content">
+		<div class="svg_divs svg-container" id="linhas_vigentes"></div>
+	</div>
+</section>
+
+<script>
+var fq = "{{query_facet.fq|safe}}"
+var q = '{{query_facet.query_string|safe}}'
+var selected_facets ="{{query_facet.selected_facets|safe}}"
+$.ajax({
+  url: "/{{sigla_idioma}}/data_graphics/",
+  method:'POST',
+  dataType:"json",
+  data: {q:q, fq:fq,selected_facets:selected_facets, grafico:'linhas_vigentes', csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val()},
+  success: function(resultado){
+    console.log(resultado)
+      var linhas_vigentes_data = resultado['format_compatible']
+      /*
+       * ATENCAO!!! Incluindo um ano a mais para adequar o dominio do eixo X.
+       * Como a data eh apresentada entre os ticks, eh necessario acrescentar um tick a mais.
+       */
+      var prox_ano = parseInt(linhas_vigentes_data[linhas_vigentes_data.length - 1][0]) + 1;
+      linhas_vigentes_data.push([prox_ano.toString(), 'Jan', -999, -999, prox_ano.toString()+1])
+      linhas_vigentes_data.reverse()
+
+      // console.log(linhas_vigentes_data)
+
+      var parseDate = d3.time.format("%Y%m").parse;
+
+      bolsas = []
+      projetos = []
+      fomentos = []
+
+      linhas_vigentes_data.forEach(function(entry, index, object) {
+        /*
+         * So estah mostrando os valores maiores que 1991, pq menor que 1991 nao existe na BV e
+         * 1991 estah incompleto.
+         */
+        if (entry[0] <= 1991) {
+          linhas_vigentes_data.splice(index, 0);
+          return
+        }
+        entry['bolsa'] = Number(entry['3'])
+        entry['projeto'] = Number(entry['2'])
+        entry['date'] = parseDate(entry['4']);
+        entry.ano= Number(entry['0'])
+        if (!entry['1'] || entry['projeto'] < 0 || entry['bolsa'] < 0) {
+          return
+        }
+        bolsas.push({date:entry['date'], qt:entry['bolsa'], linha_fomento:"Bolsas"})
+        projetos.push({date:entry['date'], qt:entry['projeto'], linha_fomento:"Projetos"})
+      });
+
+      fomentos.push({name:'Bolsas', values: bolsas},
+                  {name:'Projetos', values: projetos})
+
+      //console.log(fomentos)
+
+     var margin = {top: 15, right: 30, bottom: 110, left: 90},
+          width = 960 - margin.left - margin.right,
+          height = 500 - margin.top - 60;
+
+      //console.log('width')
+      //console.log(width)
+      var x = d3.time.scale()
+          .range([0, width]);
+          //.range([0, 827]);
+
+      var y = d3.scale.linear()
+          .range([height, 0]);
+
+      //var color = d3.scale.category10();
+      var default_apresentacao_dict =['#0000FF', '#B40431']
+      var color = d3.scale.ordinal()
+      //.domain(["Bolsas", "Projetos"])
+      .range(default_apresentacao_dict.reverse());
+
+
+      var xAxis = d3.svg.axis()
+          .ticks(d3.time.years, 1)
+          .scale(x)
+          .orient("bottom");
+
+      var yAxis = d3.svg.axis()
+          //.outerTickSize(0)
+          .scale(y)
+          .orient("left");
+
+
+      // Pega o numero de ticks do eixo, para pasasar em uma func abaixo
+      xTicks = (xAxis.scale().ticks(xAxis.ticks()[0])).length ;
+      yTicks = (yAxis.scale().ticks(yAxis.ticks()[0])).length ;
+
+
+      var line = d3.svg.line()
+          .interpolate("basis")
+          .x(function(d) { return x(d.date); })
+          .y(function(d) { return y(d.qt); });
+
+      var tip_linhas_vigentes = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+
+          //console.log(d)
+          return "<strong>" + ("0" + (d.date.getMonth() + 1)).slice(-2)   + " / " + d.date.getFullYear() + "</strong><p>&nbsp;</p><span style='color:white'>" +
+          d.linha_fomento + ": " + d.qt + "</span>";
+        })
+
+    	var svg_width = width + margin.left + margin.right;
+      var svg_height = height + margin.top + margin.bottom;
+
+      var svg = d3.select("#linhas_vigentes")
+      		.attr("style", "padding-bottom: " + Math.ceil(svg_height * 100 / svg_width) + "%")
+      		.append("svg")
+          .attr("viewBox", "0 0 " + svg_width + " " + svg_height)
+          .attr("preserveAspectRatio", "xMinYMin meet")
+          .classed("svg-content", true)
+        	.append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      function getSvgObj_LV(){
+        return svg
+      }
+      svg.call(tip_linhas_vigentes);
+
+        //x.domain(linhas_vigentes_data.map(function(d) { return d.ano; }));
+
+        x.domain(d3.extent(linhas_vigentes_data, function(d) { return d.date; }));
+
+        //console.log(linhas_vigentes_data)
+
+        y.domain([
+         d3.min(fomentos, function(c) { return d3.min(c.values, function(v) { return v.qt; }); }),
+         d3.max(fomentos, function(c) { return d3.max(c.values, function(v) { return v.qt; }); })
+        ]);
+
+
+
+      function grid_LV(svg){
+
+        // Nao deu para usar a funcao generica do d3_bv.js.
+        // Precisa rever a func
+        svg.selectAll(".grid").remove()
+
+        //var yAxisScale = d3.scale.linear()
+        //                         .range([height,0]);
+
+        var yAxisGrid = d3.svg.axis()
+          .scale(y)
+          .tickSize(width, 0)
+          .tickFormat("")
+          .orient("right")
+          //.outerTickSize(0)
+          .ticks(yTicks);
+
+        //console.log("xTicks: " + xTicks)
+        var xAxisGrid = d3.svg.axis().scale(x)
+          .ticks(40)
+          .tickSize(-height, 0)
+          .tickFormat("")
+          .orient("top");
+
+
+        svg.append("g")
+        .attr("class", "grid")
+        .classed('x', true)
+        .classed('axis', true)
+        .call(xAxisGrid);
+
+        svg.append("g")
+          .attr("class", "grid")
+          .classed('y', true)
+          .classed('axis', true)
+          .call(yAxisGrid);
+      }
+      grid_LV(svg)
+
+        var fomento = svg.selectAll(".fomento")
+            .data(fomentos)
+          .enter().append("g")
+            .attr("class", "fomento");
+
+        fomento.append("path")
+            .attr("class", "line")
+            .attr("d", function(d) { return line(d.values); })
+            .style("stroke", function(d) { return color(d.name); })
+    				.style("fill-opacity", function(d) { return 0; });
+
+
+
+
+        fomento.append("text")
+            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+            .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.qt) + ")"; })
+            .attr("x", 3)
+            .attr("dy", ".35em");
+            //.text(function(d) { return d.name; });
+
+        /*
+          Para mostrar tooltip em grafico de linha é muito complicado pegar o ponto,
+          entao o que se recomenda no d3js eh desenhar circulos em cada ponto da linha e
+          mostrar o tooltip a partir do circulo.
+        */
+        fomento.selectAll(".circle")
+            .data( function(d) {return(d.values);} )
+             .enter()
+             .append("svg:circle")
+             .attr("class", "circle")
+             .style('opacity', 1e-6)//1e-6
+             .attr("cx", function (d) {
+                return x(d.date);
+             })
+             .attr("cy", function (d) {
+               return y(d.qt);
+             })
+             .attr("linha_fomento", function (d) {
+               return y(d.linha_fomento);
+             })
+
+             .attr("r", 5)
+             .on('mouseover', function(d, i){
+             	showTip(this, tip_linhas_vigentes, d)
+             })
+             .on('mouseout', tip_linhas_vigentes.hide)
+
+        //capturar o numero de ticks de y para mandar para essa func
+        //http://stackoverflow.com/questions/22722952/how-can-i-get-the-d3-js-axis-ticks-and-positions-as-an-array
+        //monta_grid(getSvgObj_LV(), yTicks, x, y)
+
+
+    {% if sigla_idioma = 'pt'%}
+      var texto_y = 'Projetos de pesquisa vigentes';
+      var fomentos = [{'id':'1', 'label': 'Auxílios à pesquisa', 'qt': 1},
+                                  {'id':'2', 'label': 'Bolsas', 'qt': 1}]
+    {% elif sigla_idioma = 'en'%}
+      var texto_y = 'Number of funded research projects';
+      var fomentos = [{'id':'1', 'label': 'Research grants', 'qt': 1},
+                                  {'id':'2', 'label': 'Scholarships', 'qt': 1}]
+    {% endif %}
+
+
+
+      var colors_legenda =['#0000FF', '#B40431']
+      criar_legenda(getSvgObj_LV(), '', fomentos, colors_legenda, 500, 465);
+      svb_border(svg, height, width)
+      adicionar_eixos(svg, height, 25, xAxis, yAxis)
+
+      textosEixos(svg, '', texto_y)
+
+    }
+})
+</script>

@@ -1,0 +1,243 @@
+
+{
+  "COLLECTION":{
+        "label": " WOS - Web of Science ",
+        "omite_secoes": [
+          "outros_indicadores","refine", "pivot_table", "gather_nodes"
+        ],
+
+        "campo_dinamico_busca": "cross_collection_wos",
+        "id_index_from": "",
+        "id_index_to": ""
+  },
+
+  "FACETS":[
+      {
+        "groupBy": {
+          "id": "categoria", "label": "Categoria", "order": 1},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "research_areas", "label": "Áreas de pesquisa"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "web_of_science_categories", "label": "Categorias WoS"}]}
+             ]},
+
+            {"groupBy": {"id": "editora_revista", "label": "Editora / Revista", "order": 0},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "journal_iso", "label": "Publicação ISO"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "type", "label": "Tipo"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "publisher_journal_volume_facet", "label": "Editora"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Year_Month_facet", "label": "Decenio"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "language", "label": "Língua"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "address", "label": "País da Editora"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "affiliation_country", "label": "País dos Afiliados"}]}
+            ]},
+
+            {"groupBy": {"id": "citacoes", "label": "Citações", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "number_of_cited_references", "label": "Referências citadas"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "times_cited_facet", "label": "Número de citações"}]}
+             ]}
+    ],
+
+    "OUTCOMES": [
+
+
+    ],
+
+
+    "SANKEY_CHART":{
+      "default_level_2": {"value": "Year_Month_facet", "label": "Decênio"},
+      "default_level_1": {"value": "affiliation_country", "label": "Pais (coautores)"},
+        "options": [
+          {"value": "times_cited", "label": "Número de citações"},
+          {"value": "Year", "label": "Ano da publicação"},
+          /* {"value": "number_of_cited_references", "label": "Número de referências citadas"}, */
+          /* {"value": "publisher_journal_volume_facet", "label": "publisher_journal_volume"}, */
+          {"value": "research_areas", "label": "research_areas"},
+          {"value": "language", "label": "Língua"},
+          {"value": "Year_Month_facet", "label": "Decênio"},
+          /* {"value": "web_of_science_categories", "label": "Categorias WoS"}, */
+          {"value": "affiliation_country", "label": "Pais (coautores)"},
+          {"value": "type", "label": "Tipo de publicação"}
+        ]
+    },
+
+    "BUBBLE_CHART": {
+          "default_level_1": {"value": "Year", "label": "Ano da publicação"},
+          "default_level_2": {"value": "times_cited", "label": "Número de citações"},
+          "options": [
+            {"value": "times_cited", "label": "Número de citações"},
+            {"value": "number_of_cited_references", "label": "Número de referências citadas"},
+            /* {"value": "publisher_journal_volume_facet", "label": "publisher_journal_volume"}, */
+            {"value": "research_areas", "label": "research_areas"},
+            {"value": "language", "label": "Língua"},
+            {"value": "Year_Month_facet", "label": "Decênio da publicação"},
+            {"value": "web_of_science_categories", "label": "Categorias WoS"},
+            {"value": "type", "label": "Tipo de publicação"},
+            {"value": "Year", "label": "Ano da publicação"},
+            {"value": "affiliation_country", "label": "Pais (coautores)"}
+
+          ]
+      },
+
+
+      "BOXPLOT_CHART":{
+            "default_level_1": {"value": "times_cited", "label": "Número de citações"},
+            "default_level_2": {"value": "Year", "label": "Ano da publicação"},
+            "options_x": [
+                  {"value": "Year", "label": "Ano da publicação"},
+                  {"value": "language", "label": "Língua"}
+            ],
+            "options_y": [
+                {"value": "times_cited", "label": "Número de citações"},
+                {"value": "number_of_cited_references", "label": "Número de referências citadas"}
+            ]
+      },
+
+
+    "MULTILEVEL_BARCHART_1":{
+      "default_level_2": "times_cited",
+        "default_level_1": "language",
+        "y_axis": [
+            {"value": "times_cited", "label": "Número de citações"},
+            {"value": "number_of_cited_references", "label": "Número de referências citadas"},
+            {"value": "publisher_journal_volume_facet", "label": "publisher_journal_volume"},
+            {"value": "research_areas", "label": "research_areas"},
+            {"value": "Year", "label": "Ano da publicação"},
+            {"value": "web_of_science_categories", "label": "Categorias WoS"}
+        ],
+        "y_stratification": [
+            {"value": "Year_Month_facet", "label": "Decênio"},
+            {"value": "language", "label": "Língua"},
+            {"value": "type", "label": "Tipo de publicação"},
+            {"value": "Year", "label": "Ano da publicação"}
+        ]
+    },
+
+    "WORDCLOUD_CHART":{
+        "single_facet": {"value": "keyword_plus", "label": "keyword_plus _ (WoS)"},
+          "options": [
+              {"value": "abstract_nuvem_palavras", "label": "Resumo"},
+              {"value": "keyword_plus", "label": "keyword_plus _ (WoS)"}
+            ]
+    },
+
+    "QUERY_BUILDER":{
+          "plugins" : ["bt-tooltip-errors"],
+          "filters" : [
+            {
+
+              "get_from_solr_field": "text",
+              "label": "Busca textual",
+              "operators": ["contains", "not_contains"],
+              "input": "text",
+              "type": "string"
+            },
+            {
+              // campo pesquisado no solr pelo getData(), manter mesmo valor de facet_field quando usado autocomplete
+              "get_from_solr_field": "web_of_science_categories",
+              // label do campo de seleção do filtro
+              "label": "Categoria WoS",
+              // operadores logicos utilizados pelo querybuilder
+              "operators": ["equal", "not_equal"],
+              // função usada pelo querybuilder para construir o input, definido em bv_querybuilder.js
+              "input": "autocomplete",
+              // parametro extras do autocomplete
+              "solr_params": {
+                // parametro do solr
+                "q" : "*:*",
+                // parametro do solr
+                "fl" : "*",
+                // numero de itens que aparecem na listagem de autocomplete
+                "rows": "20",
+                // campo de busca da query
+                "field": "web-of-science-categories_busca",
+
+                // campo que é usado para gerar lista de intes facetados no auto_com
+                "facet_field" : "web_of_science_categories"
+
+               } ,
+              "type": "string"
+          },
+            {
+              "get_from_solr_field": "keyword",
+              "label": "Palavra chave",
+              "operators": ["equal", "not_equal"],
+              "input": "autocomplete",
+              "solr_params": {
+                "q" : "*:*",
+                "fl" : "*",
+                "rows": "20",
+                "field": "keyword_busca",
+                "facet_field" : "keyword"
+
+               } ,
+              "type": "string"
+          },
+          {
+            "get_from_solr_field": "abstract",
+            "label": "Resumo",
+            "operators": ["equal", "not_equal"],
+            "input": "autocomplete",
+            "solr_params": {
+              "q" : "*:*",
+              "fl" : "*",
+              "rows": "20",
+              "field": "abstract",
+              "facet_field" : "abstract"
+
+             } ,
+            "type": "string"
+        },
+        {
+          "get_from_solr_field": "Author",
+          "label": "Autor",
+          "operators": ["equal", "not_equal"],
+          "input": "autocomplete",
+          "solr_params": {
+            "q" : "*:*",
+            "fl" : "*",
+            "rows": "20",
+            "field": "Author_busca",
+            "facet_field" : "Author"
+
+           } ,
+          "type": "string"
+      },
+      {
+        "get_from_solr_field": "title",
+        "label": "Titulo",
+        "operators": ["equal", "not_equal"],
+        "input": "autocomplete",
+        "solr_params": {
+          "q" : "*:*",
+          "fl" : "*",
+          "rows": "20",
+          "field": "title_busca",
+          "facet_field" : "title"
+
+         } ,
+        "type": "string"
+    },
+    {
+      "get_from_solr_field": "affiliation",
+      "label": "Afiliados",
+      "operators": ["equal", "not_equal"],
+      "input": "autocomplete",
+      "solr_params": {
+        "q" : "*:*",
+        "fl" : "*",
+        "rows": "20",
+        "field": "affiliation_busca",
+        "facet_field" : "affiliation"
+
+       } ,
+      "type": "string"
+    }
+
+          ]
+    }
+}

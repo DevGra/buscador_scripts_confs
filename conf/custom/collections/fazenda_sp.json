@@ -1,0 +1,119 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+{
+  "COLLECTION":{
+    "label": "Fazenda SP - Execução orçamentária",
+    "omite_secoes": ["refine", "busca", "documentos", "related_collections", "pivot_table", "wordcloud", "boxplot", "gather_nodes"],
+    "campo_dinamico_busca": "cross_collection_fazenda_sp"
+  },
+
+  "FACETS":[
+    {"groupBy": {"id": "fonte", "label": "Fonte", "order": 1},
+     "facetGroup": [
+         {"label": "", "render": "barChart_1",
+          "facets": [{"chave": "Fonte_de_Recursos", "label": "Fonte de Recursos"}]}
+     ]},
+    {"groupBy": {"id": "orgao", "label": "Orgão", "order": 2},
+     "facetGroup": [
+         {"label": "", "render": "barChart_1", "facets": [{"chave": "_rg_o", "label": "Orgão"}]},
+         {"label": "", "render": "barChart_1", "facets": [{"chave": "UO", "label": "UO"}]},
+         {"label": "", "render": "barChart_1",
+          "facets": [{"chave": "Unidade_Gestora", "label": "Unidade Gestora"}]}
+     ]},
+    {"groupBy": {"id": "funcao", "label": "Função", "order": 3},
+     "facetGroup": [
+         {"label": "", "render": "barChart_1", "facets": [{"chave": "Fun__o", "label": "Função"}]},
+         {"label": "", "render": "barChart_1", "facets": [{"chave": "Sub_Fun__o", "label": "Sub Função"}]},
+         {"label": "", "render": "barChart_1", "facets": [{"chave": "Programa", "label": "Programa"}]}
+     ]},
+    {"groupBy": {"id": "elemento", "label": "Elemento", "order": 4},
+     "facetGroup": [
+         {"label": "", "render": "barChart_1", "facets": [{"chave": "A__o", "label": "Ação"}]},
+         {"label": "", "render": "barChart_1",
+          "facets": [{"chave": "Funcional_Program_tica", "label": "Funcional Programática"}]},
+         {"label": "", "render": "barChart_1", "facets": [{"chave": "Elemento", "label": "Elemento"}]}
+     ]}
+   ],
+
+  "OUTCOMES": [
+    {"label": "Dotação Inicial", "sum": "Dota__o_Inicial", "docs": {}, "data_type": "currency",
+     "type": ["main"], "order": 1},
+    {"label": "Dotação Atual", "sum": "Dota__o_Atual", "docs": {}, "data_type": "currency", "type": ["main"],
+     "order": 2},
+    {"label": "Empenhado", "sum": "Empenhado", "docs": {}, "data_type": "currency", "type": ["main"],
+     "order": 3},
+    {"label": "Liquidado", "sum": "Liquidado", "docs": {}, "data_type": "currency", "type": ["main"],
+     "order": 4},
+    {"label": "Pago", "sum": "Pago", "docs": {}, "data_type": "currency", "type": ["main"], "order": 5},
+    {"label": "Pago_Restos", "sum": "Pago_Restos", "docs": {}, "data_type": "currency", "type": ["main"],
+     "order": 6}
+  ],
+
+  "SANKEY_CHART":{
+    "default_level_1": {"value": "Fonte_de_Recursos", "label": "Fonte de recursos"},
+    "default_level_2": {"value": "Fun__o", "label": "Função"},
+    "options": [
+        {"value": "Fonte_de_Recursos", "label": "Fonte de recursos"},
+        {"value": "UO", "label": "UO"},
+        {"value": "_rg_o", "label": "Orgão"},
+        {"value": "Unidade_Gestora", "label": "Unidade Gestora"},
+        {"value": "Fun__o", "label": "Função"},
+        {"value": "Sub_Fun__o", "label": "Sub Função"},
+        {"value": "Programa", "label": "Programa"},
+        {"value": "A__o", "label": "Ação"},
+        {"value": "Funcional_Program_tica", "label": "Funcional Programática"},
+        {"value": "Elemento", "label": "Elemento"}
+    ]
+  },
+
+  "BUBBLE_CHART":{
+    "default_level_1": {"value": "Fonte_de_Recursos", "label": "Fonte de recursos"},
+    "default_level_2": {"value": "Fun__o", "label": "Função"},
+    "options": [
+        {"value": "Fonte_de_Recursos", "label": "Fonte de recursos"},
+        {"value": "UO", "label": "UO"},
+        {"value": "_rg_o", "label": "Orgão"},
+        {"value": "Unidade_Gestora", "label": "Unidade Gestora"},
+        {"value": "Fun__o", "label": "Função"},
+        {"value": "Sub_Fun__o", "label": "Sub Função"},
+        {"value": "Programa", "label": "Programa"},
+        {"value": "A__o", "label": "Ação"},
+        {"value": "Funcional_Program_tica", "label": "Funcional Programática"},
+        {"value": "Elemento", "label": "Elemento"}
+    ]
+  },
+  "MULTILEVEL_BARCHART_1":{
+      "default_level_1": "Fonte_de_Recursos",
+      "default_level_2": "Fun__o",
+      "y_axis": [
+        {"value": "Fonte_de_Recursos", "label": "Fonte de recursos"},
+        {"value": "UO", "label": "UO"},
+        {"value": "_rg_o", "label": "Orgão"},
+        {"value": "Unidade_Gestora", "label": "Unidade Gestora"},
+        {"value": "Fun__o", "label": "Função"},
+        {"value": "Sub_Fun__o", "label": "Sub Função"},
+        {"value": "Programa", "label": "Programa"},
+        {"value": "A__o", "label": "Ação"},
+        {"value": "Funcional_Program_tica", "label": "Funcional Programática"},
+        {"value": "Elemento", "label": "Elemento"}
+
+      ],
+      "y_stratification": [
+        {"value": "Fonte_de_Recursos", "label": "Fonte de recursos"},
+        {"value": "UO", "label": "UO"},
+        {"value": "_rg_o", "label": "Orgão"},
+        {"value": "Unidade_Gestora", "label": "Unidade Gestora"},
+        {"value": "Fun__o", "label": "Função"},
+        {"value": "Sub_Fun__o", "label": "Sub Função"},
+        {"value": "Programa", "label": "Programa"},
+        {"value": "A__o", "label": "Ação"},
+        {"value": "Funcional_Program_tica", "label": "Funcional Programática"},
+        {"value": "Elemento", "label": "Elemento"}
+
+      ]
+  }
+}

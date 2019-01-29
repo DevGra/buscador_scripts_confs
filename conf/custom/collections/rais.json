@@ -1,0 +1,215 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+
+{
+  "COLLECTION":{
+        // "django_ct":"geral.pesquisador",
+        "label": " RAIS - RELAÇÃO ANUAL DE INFORMAÇÕES SOCIAIS ",
+        "omite_secoes": ["refine", "busca", "documentos", "related_collections", "pivot_table", "wordcloud", "gather_nodes"],
+        // Caso nao queira uma determinada secao no buscador.
+
+        "campo_dinamico_busca": "cross_collection_rais",
+        "id_index_from": "",
+        "id_index_to": ""
+  },
+
+  "FACETS":[
+      {"groupBy": {"id": "pessoais", "label": "Pessoais", "order": 1},
+             "facetGroup": [
+                 {"label": "Idade", "render": "barChart_1", "facets": [{"chave": "Idade_facet", "label": "Idade"}]},
+                 {"label": "Portador de deficiência", "render": "halfPieChart",
+                  "facets": [{"chave": "Ind_Portador_Defic", "label": "Portador de deficiência"}]},
+                 {"label": "Raça/Cor", "render": "barChart_1", "facets": [{"chave": "Ra_a_Cor", "label": "Raça / Cor"}]},
+                 {"label": "Faixa Etária", "render": "barChart_1",
+                  "facets": [{"chave": "Faixa_Et_ria", "label": "Faixa Etária"}]},
+                 {"label": "Escolaridade após 2005", "render": "barChart_1",
+                  "facets": [{"chave": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"}]},
+                 {"label": "Sexo", "render": "halfPieChart",
+                  "facets": [{"chave": "Sexo_Trabalhador", "label": "Sexo"}]},
+                 {"label": "Tipo de deficiência", "render": "barChart_1", "facets": [{"chave": "Tipo_Defic", "label": "Tipo de deficiência"}]},
+                 {"label": "Ano de chegada ao Brasil", "render": "barChart_1",
+                  "facets": [{"chave": "Ano_Chegada_Brasil", "label": "Ano de chegada ao Brasil"}]}
+
+             ]},
+
+            {"groupBy": {"id": "geografico", "label": "Geográficos", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Geografico_moradia_facet", "label": "Município de moradia"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Geografico_trabalho_facet", "label": "Município de trabalho"}]},
+                 {"label": "Nacionalidade", "render": "barChart_1",
+                  "facets": [{"chave": "Nacionalidade", "label": "Nacionalidade"}]}
+             ]},
+            {"groupBy": {"id": "afastamento", "label": "Afastamento / Desligamento", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Causa_Afastamento_1", "label": "Causa Afastamento 1"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Causa_Afastamento_2", "label": "Causa Afastamento 2"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Causa_Afastamento_3", "label": "Causa Afastamento 3"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Motivo_Desligamento", "label": "Motivo Desligamento"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Qtd_Dias_Afastamento", "label": "Qtd de Dias de Afastamento"}]}
+             ]},
+
+            {"groupBy": {"id": "ocupa_cnae", "label": "Ocupação / CNAE", "order": 3},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CBO_Ocupa__o_2002", "label": "Código CBO de Ocupação 2002"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CNAE_95_Classe", "label": " Código CNAE 95 Classe"}]}
+                 // {"label":"" , "render":"barChart_1", "facets":[{"chave":"CNAE_2.0_Classe", "label": "CNAE_2.0_Classe"}]}, // Dah erro
+             ]},
+            {"groupBy": {"id": "trabalho", "label": "Trabalho", "order": 4},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Tipo_V_nculo", "label": "Tipo de Vínculo"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "IBGE_Subsetor", "label": "IBGE Subsetor"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Tipo_Estab", "label": "Tipo do Estabelecimento"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Tipo_Admiss_o", "label": "Tipo de Admissão"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Tamanho_Estabelecimento", "label": "Tamanho do Estabelecimento"}]}
+             ]}
+    ],
+
+    "OUTCOMES": [
+            {"label": "Remuneração do trabalhador em Dezembro (Nominal)", "sum": "Vl_Remun_Dezembro_Nom", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 1},
+            {"label": "Mediana da Remuneração do trabalhador em Dezembro (em Salários Minimos)", "median": "Vl_Remun_Dezembro__SM_", "docs": {}, "data_type": "",
+             "type": ["main"], "order": 2},
+            {"label": "Remuneração média do trabalhador no ano (Nominal)", "sum": "Vl_Remun_M_dia_Nom", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 3},
+            {"label": "Mediana da Remuneração média do trabalhador no ano (em Salários Minimos)", "median": "Vl_Remun_M_dia__SM_", "docs": {}, "data_type": "",
+             "type": ["main"], "order": 4},
+            {"label": "Remuneração do trabalhador em Janeiro", "sum": "Vl_Rem_Janeiro_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 5},
+            {"label": "Remuneração do trabalhador em Fevereiro", "sum": "Vl_Rem_Fevereiro_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 6},
+            {"label": "Remuneração do trabalhador em Março", "sum": "Vl_Rem_Mar_o_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 7},
+            {"label": "Remuneração do trabalhador em Abril", "sum": "Vl_Rem_Abril_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 8},
+            {"label": "Remuneração do trabalhador em Maio", "sum": "Vl_Rem_Maio_CC", "docs": {}, "data_type": "currency", "type": ["main"],
+             "order": 9},
+            {"label": "Remuneração do trabalhador em Junho", "sum": "Vl_Rem_Junho_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 10},
+            {"label": "Remuneração do trabalhador em Julho", "sum": "Vl_Rem_Julho_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 10},
+            {"label": "Remuneração do trabalhador em Agosto", "sum": "Vl_Rem_Agosto_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 10},
+            {"label": "Remuneração do trabalhador em Setembro", "sum": "Vl_Rem_Setembro_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 10},
+            {"label": "Remuneração do trabalhador em Outubro", "sum": "Vl_Rem_Outubro_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 10},
+            {"label": "Remuneração do trabalhador em Novembro", "sum": "Vl_Rem_Novembro_CC", "docs": {}, "data_type": "currency",
+             "type": ["main"], "order": 11}
+
+    ],
+
+
+  "SANKEY_CHART":{
+        "default_level_1": {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+        "default_level_2": {"value": "Sexo_Trabalhador", "label": "Sexo"},
+        "options": [
+            {"value": "Sexo_Trabalhador", "label": "Sexo"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Munic_pio", "label": "Município"},
+            {"value": "Mun_Trab", "label": "Município de Trabalho"},
+            {"value": "Nacionalidade", "label": "Nacionalidade"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Ind_Portador_Defic", "label": "Indentificador Portador Deficiência"},
+            {"value": "Ra_a_Cor", "label": "Raça / Cor"},
+            {"value": "Faixa_Et_ria", "label": "Faixa Etária"},
+            {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+            {"value": "Tipo_Defic", "label": "Tipo de Deficiência"},
+            {"value": "Ano_Chegada_Brasil", "label": "Ano de chegada ao Brasil"}
+        ]
+  },
+
+  "BUBBLE_CHART": {
+        "default_level_1": {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+        "default_level_2": {"value": "Sexo_Trabalhador", "label": "Sexo"},
+        "options": [
+            {"value": "Sexo_Trabalhador", "label": "Sexo"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Munic_pio", "label": "Município"},
+            {"value": "Mun_Trab", "label": "Município de Trabalho"},
+            {"value": "Nacionalidade", "label": "Nacionalidade"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Ind_Portador_Defic", "label": "Indentificador Portador Deficiência"},
+            {"value": "Ra_a_Cor", "label": "Raça / Cor"},
+            {"value": "Faixa_Et_ria", "label": "Faixa Etária"},
+            {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+            {"value": "Tipo_Defic", "label": "Tipo de Deficiência"},
+            {"value": "Ano_Chegada_Brasil", "label": "Ano de chegada ao Brasil"}
+        ]
+    },
+
+    "MULTILEVEL_BARCHART_1":{
+        "default_level_1":{"value": "Ra_a_Cor", "label": "Raça / Cor"},
+        "default_level_2": {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+        "y_axis": [
+            {"value": "Sexo_Trabalhador", "label": "Sexo"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Ra_a_Cor", "label": "Raça / Cor"},
+            {"value": "Munic_pio", "label": "Município"},
+            {"value": "Mun_Trab", "label": "Município de Trabalho"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Faixa_Et_ria", "label": "Faixa Etária"},
+            {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+            {"value": "Tipo_Defic", "label": "Tipo de Deficiência"},
+            {"value": "Ano_Chegada_Brasil", "label": "Ano de chegada ao Brasil"}
+        ],
+        "y_stratification": [
+            {"value": "Sexo_Trabalhador", "label": "Sexo"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Nacionalidade", "label": "Nacionalidade"},
+            {"value": "Idade", "label": "Idade"},
+            {"value": "Ind_Portador_Defic", "label": "Indentificador Portador Deficiência"},
+            {"value": "Ra_a_Cor", "label": "Raça / Cor"},
+            {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+            {"value": "Tipo_Defic", "label": "Tipo de Deficiência"}
+        ]
+    },
+
+    "BOXPLOT_CHART":{
+          "default_level_1": {"value": "Faixa_Et_ria", "label": "Faixa Etária"},
+          "default_level_2": {"value": "Vl_Rem_Novembro_CC", "label": "Remuneracao Novembro"},
+          "options_x": [
+              {"value": "Sexo_Trabalhador", "label": "Sexo"},
+              {"value": "Idade", "label": "Idade"},
+              //{"value": "Munic_pio", "label": "Município"},
+              //{"value": "Mun_Trab", "label": "Município de Trabalho"},
+              {"value": "Nacionalidade", "label": "Nacionalidade"},
+              //{"value": "Distritos_SP", "label": "Distrito SP"},
+              {"value": "Idade", "label": "Idade"},
+              {"value": "Ind_Portador_Defic", "label": "Indentificador Portador Deficiência"},
+              {"value": "Ra_a_Cor", "label": "Raça / Cor"},
+              {"value": "Faixa_Et_ria", "label": "Faixa Etária"},
+              {"value": "Escolaridade_ap_s_2005", "label": "Escolaridade após 2005"},
+              {"value": "Tipo_Defic", "label": "Tipo de Deficiência"},
+              {"value": "Ano_Chegada_Brasil", "label": "Ano de chegada ao Brasil"}
+          ],
+          "options_y": [
+              {"value": "Idade", "label": "Idade"},
+              {"value": "Vl_Rem_Janeiro_CC", "label": "Remuneracao Janeiro"},
+              {"value": "Vl_Rem_Fevereiro_CC", "label": "Remuneracao Fevereiro"},
+              {"value": "Vl_Rem_Mar_CC", "label": "Remuneracao Mar"},
+              {"value": "Vl_Rem_Abril_CC", "label": "Remuneracao Abril"},
+              {"value": "Vl_Rem_Maio_CC", "label": "Remuneracao Maio"},
+              {"value": "Vl_Rem_Junho_CC", "label": "Remuneracao Junho"},
+              {"value": "Vl_Rem_Julho_CC", "label": "Remuneracao Julho"},
+              {"value": "Vl_Rem_Agosto_CC", "label": "Remuneracao Agosto"},
+              {"value": "Vl_Rem_Setembro_CC", "label": "Remuneracao Setembro"},
+              {"value": "Vl_Rem_Outubro_CC", "label": "Remuneracao Outubro"},
+              {"value": "Vl_Rem_Novembro_CC", "label": "Remuneracao Novembro"},
+              {"value": "Vl_Remun_Dezembro_Nom", "label": "Remuneracao Dezembro"}
+          ]
+    }
+}

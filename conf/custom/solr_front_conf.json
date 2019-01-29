@@ -1,0 +1,172 @@
+/*
+* This won't pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+{
+  "GRAPH": {
+    "graph_auxilios": ["bv_memoria", "bv_empresas", "bv_pesquisadores"],
+    "bv_memoria": [],
+    "bv_empresas": ["graph_auxilios"],
+    "bv_pesquisadores": ["graph_auxilios", "lattes"],
+    /* "memoria_autoria": [], */
+    "fazenda_sp": [],
+    "lattes": [],
+    "pesquisa_pipe": ["graph_auxilios"],
+    "inep_docentes": [],
+    "inep_alunos": [],
+    "rais": [],
+    "rais_estabelecimentos": [],
+    "wos": [],
+    "lattes": [],
+    "enade": [],
+    "pnade":[],
+    "enem":[],
+    "pipe_denegados":[],
+    "capes_discentes":[],
+    "capes_docentes":[],
+    "capes_programas":[],
+    "capes_teses":[]
+  },
+  "EDGES":{
+    "graph_auxilios": {
+        "vertices": {
+            /* "graph_auxilios": {
+                "relationship_type": "one_to_many",
+                "one": "numero_processo",
+                "many": "projetos_pai_np",
+                "label": "Projetos de Pesquisa vinculados (Auxílios e Bolsas)"
+            }, */
+            "bv_memoria": {
+                "relationship_type": "one_to_many",
+                "one": "numero_processo",
+                "many": "numero_processos",
+                "label": "Publicações Científicas"
+            },
+            "bv_empresas": {
+                "relationship_type": "one_to_many",
+                "one": "numero_processo",
+                "many": "numero_processos",
+                "label": "Empresas do PIPE"
+            },
+            "bv_pesquisadores": {
+                "relationship_type": "many_to_one",
+                "one": "django_id",
+                "many": "id_pesquisador",
+                "label": "Pesquisadores (responsável e beneficiário)"
+            }
+        }
+    },
+    "bv_memoria": {
+        "vertices": {
+            /* "memoria_autoria": {
+                "relationship_type": "many_to_one",
+                "one": "django_id",
+                "many": "id_autorias",
+                "label": "Autorias de Publicações Científicas"
+            } */
+         }
+    },
+    "memoria_autoria": {
+        "vertices": {
+        }
+    },
+    "enade": {
+        "vertices": {
+        }
+    },
+    "rais": {
+        "vertices": {
+        }
+    },
+    "rais_estabelecimentos": {
+        "vertices": {
+        }
+    },
+    "fazenda_sp": {
+        "vertices": {
+        }
+    },
+    "pesquisa_pipe": {
+        "vertices": {
+            "graph_auxilios": {
+                "relationship_type": "many_to_one",
+                "one": "numero_processo",
+                "many": "numero_processo",
+                "label": "Processos (Auxilios e Bolsas)"
+            }
+        }
+    },
+    "bv_empresas": {
+        "vertices": {
+            "graph_auxilios": {
+                "relationship_type": "many_to_one",
+                "one": "numero_processo",
+                "many": "numero_processos",
+                "label": "Processos (Auxilios e Bolsas)"
+            }
+        }
+    },
+    "bv_pesquisadores": {
+        "vertices": {
+            "graph_auxilios": {
+                "relationship_type": "one_to_many",
+                "one": "django_id",
+                "many": "id_pesquisador",
+                "label": "Projetos de Pesquisa (Auxílios e Bolsas)"
+            },
+            "lattes": {
+                "relationship_type": "one_to_many",
+                "one": "django_id",
+                "many": "id",
+                "label": "Lattes"
+            }
+        }
+    },
+    "inep_docentes": {
+        "vertices": {
+        }
+    },
+    "inep_alunos": {
+        "vertices": {
+        }
+    },
+    "lattes": {
+        "vertices": {
+        }
+    },
+    "wos": {
+        "vertices": {
+        }
+    },
+    "capes_discentes": {
+        "vertices": {
+        }
+    },
+    "capes_docentes": {
+        "vertices": {
+        }
+    },
+    "capes_programas": {
+	    "vertices": {
+	    }
+    },
+    "capes_teses": {
+        "vertices": {
+        }
+    },
+    "pnade": {
+        "vertices": {
+        }
+    },
+    "pipe_denegados": {
+        "vertices": {
+        }
+    },
+    "enem": {
+        "vertices": {
+        }
+    }
+  }
+}

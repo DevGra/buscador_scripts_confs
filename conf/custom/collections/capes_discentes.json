@@ -1,0 +1,857 @@
+{
+	"COLLECTION": {
+		"label": "CAPES - Discentes",
+		"omite_secoes": ["refine", "documentos", "related_collections", "pivot_table", "gather_nodes", "boxplot", "docs_snippet", "sankey_chart"],
+		"campo_dinamico_busca": "cross_collection_caged_discentes"
+	},
+
+	"FACETS": [{
+			"groupBy": {
+				"id": "sobre",
+				"label": "Sobre o ano base",
+				"order": 1
+			},
+			"facetGroup": [{
+				"label": "",
+				"render": "barChart_1",
+				"facets": [{
+					"chave": "AN_BASE_facet",
+					"label": "Ano de Referência da Coleta de Dados"
+				}]
+			}]
+		},
+        {
+    			"groupBy": {
+    				"id": "ident_pessoa",
+    				"label": "Identificação do discente",
+    				"order": 2
+    			},
+    			"facetGroup": [{
+    				"label": "",
+    				"render": "barChart_1",
+    				"facets": [{
+    					"chave": "ID_PESSOA",
+    					"label": "Código de Identificação da Pessoa"
+    				}]
+    			}]
+    		},
+
+		{
+			"groupBy": {
+				"id": "id_matricula",
+				"label": "Informações da Matrícula",
+				"order": 3
+			},
+			"facetGroup": [{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "SituacaoDiscente",
+						"label": "Situação do Discente"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "IngressanteAno",
+						"label": "Situação do Discente como Ingressante no Ano de Referência "
+					}]
+				},
+
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "GrauAcademico",
+						"label": "Grau Acadêmico que o Discente está Vinculado"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "DT_SITUACAO_DISCENTE",
+						"label": "Data da Situacao do Discente"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "DT_MATRICULA_DISCENTE",
+						"label": "Data de Matrícula do Discente"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "QT_MES_TITULACAO",
+						"label": "Quantidade de Meses para a Titulação do Discente"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "Casos_Excluidos_GeoCapes",
+						"label": "Registros a serem excluídos (Programas com conceitos inferiores a 3)"
+					}]
+				}
+			]
+		},
+		{
+			"groupBy": {
+				"id": "atrib_pessoal_discente",
+				"label": "Atributos Pessoais do Discente",
+				"order": 4
+			},
+			"facetGroup": [{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "Genero",
+						"label": "Sexo do Discente"
+					}]
+				},
+
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "idade",
+						"label": "Faixa Etária do Discente"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "DS_TIPO_NACIONALIDADE_DISCENTE",
+						"label": "Nacionalidade do Discente"
+					}]
+				},
+
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_PAIS_NACIONALIDADE_DISCENTE",
+						"label": "País de Nacionalidade do Discente"
+					}]
+				}
+			]
+		},
+
+		{
+			"groupBy": {
+				"id": "info_institu_vinc_prog",
+				"label": "Informações Sobre a Instituição a Qual está Vinculado o Programa",
+				"order": 5
+			},
+			"facetGroup": [{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "SG_ENTIDADE_ENSINO_Capes",
+						"label": "Sigla da Instituição a qual o Programa de Pós-Graduação está Vinculado(Capes)"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_ENTIDADE_ENSINO_Capes",
+						"label": "Nome da Instituição a qual o Programa de Pós-Graduação está Vinculado(Capes)"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "SG_INST_GEI",
+						"label": "Sigla da Instituição a qual o Programa de Pós-Graduação está Vinculado(Fapesp-Gei)"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_INST_GEI",
+						"label": "Nome da Instituição a qual o Programa de Pós-Graduação está Vinculado(Fapesp-Gei)"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "cat_insti",
+						"label": "Tipo de Instituição(Fapesp-Gei)"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "CS_STATUS_JURIDICO",
+						"label": "Status Jurídico da Instituição a qual o Programa de Pós-Graduação está Vinculado(Capes)"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "DS_DEPENDENCIA_ADMINISTRATIVA",
+						"label": "Dependência Administrativa da Instituição a qual o Programa de Pós-Graduação está Vinculado(Capes)"
+					}]
+				},
+
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "CS_Natureza_Juridica",
+						"label": "Natureza Jurídica da Instituição a qual o Programa de Pós-Graduação está Vinculado(Fapesp-Gei)"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "DS_ORGANIZACAO_ACADEMICA_Fapesp",
+						"label": "Organização Acadêmica da Instituição a qual o Programa de Pós-Graduação está Vinculado(Fapesp-Gei)"
+					}]
+				}
+
+			]
+		},
+
+		{
+			"groupBy": {
+				"id": "info_loc_Inst_Vinc_prog",
+				"label": "Informações sobre a Localização da Instituição a qual está Vinculado o Programa",
+				"order": 6
+			},
+			"facetGroup": [
+
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_REGIAO",
+						"label": "Região Geográfica onde se Localiza a Instituição do Programa"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "SG_UF_PROGRAMA",
+						"label": "UF onde se Localiza a instituição do Programa"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_MUNICIPIO_PROGRAMA_IES",
+						"label": "Município onde se Localiza a instituição do Programa"
+					}]
+				}
+			]
+		},
+
+		{
+			"groupBy": {
+				"id": "info_sobre_prog",
+				"label": "Informações sobre o programa",
+				"order": 7
+			},
+			"facetGroup": [
+                {
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "CD_PROGRAMA_IES",
+						"label": "Código do Programa de Pós-Graduação"
+					}]
+				},
+			    {
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_PROGRAMA_IES",
+						"label": "Nome do Programa de Pós-Graduação"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_GRANDE_AREA_CONHECIMENTO",
+						"label": "Grande Área do Conhecimento do Programa de pós-graduação"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_AREA_CONHECIMENTO",
+						"label": "Nome da Área do Conhecimento"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_AREA_AVALIACAO",
+						"label": "Área de Avaliação do Programa de Pós-Graduação"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "CD_CONCEITO_PROGRAMA",
+						"label": "Conceito do Programa no qual o Discente está Vinculado"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "CD_CONCEITO_CURSO",
+						"label": "Conceito do Curso no qual o Discente está Vinculado"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_MODALIDADE_PROGRAMA",
+						"label": "Modalidade do Programa de Pós-Graduação"
+					}]
+				},
+
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "NM_GRAU_PROGRAMA",
+						"label": "Grau do Programa de Pós-Graduação"
+					}]
+				},
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "IN_REDE",
+						"label": "Atividade do Curso em Rede"
+					}]
+				},
+
+				{
+					"label": "",
+					"render": "barChart_1",
+					"facets": [{
+						"chave": "DS_SITUACAO_PROGRAMA",
+						"label": "Situação de Atividade do Programa"
+					}]
+				}
+
+
+			]
+		}
+
+         /* {"groupBy": {"id": "info_sobre_tese", "label": "Informações sobre a Tese", "order": 8},
+                    "facetGroup": [
+                    {"label": "", "render": "barChart_1",
+                    "facets": [{"chave": "NM_TESE_DISSERTACAO", "label": "Título da Tese ou da Dissertação do Discente"}]},
+                    {"label": "", "render": "barChart_1",
+                    "facets": [{"chave": "NM_ORIENTADOR", "label": "Nome do Orientador do Discente"}]}
+            ]} */
+
+	],
+
+	"OUTCOMES": [{
+			"label": "Total de discentes",
+			"facet": {
+				"id": ["*"]
+			},
+			"docs": {},
+			"type": ["main"],
+			"order": 1
+		}
+
+	],
+
+	"EXPORT_DATA": {
+
+		"export_fields": [
+            "AN_BASE",
+            "ID_PESSOA",
+            "Situacaodiscente",
+            "IngressanteAno",
+            "GrauAcademico",
+            "DT_SITUACAO_DISCENTE",
+            "DT_MATRICULA_DISCENTE",
+            "QT_MES_TITULACAO",
+            "Casos_Excluidos_GeoCapes",
+            "Genero",
+            "idade",
+            "DS_TIPO_NACIONALIDADE_DISCENTE",
+            "NM_PAIS_NACIONALIDADE_DISCENTE",
+            "SG_ENTIDADE_ENSINO",
+            "NM_ENTIDADE_ENSINO",
+            "SG_INST_GEI",
+            "NM_INST_GEI",
+            "cat_insti",
+            "CS_STATUS_JURIDICO",
+            "DS_DEPENDENCIA_ADMINISTRATIVA",
+            "CS_Natureza_Juridica",
+            "DS_ORGANIZACAO_ACADEMICA-Fapesp-GEI",
+            "NM_REGIAO",
+            "SG_UF_PROGRAMA",
+            "NM_MUNICIPIO_PROGRAMA_IES",
+            "CD_PROGRAMA_IES",
+            "NM_PROGRAMA_IES",
+            "NM_GRANDE_AREA_CONHECIMENTO",
+            "NM_AREA_CONHECIMENTO",
+			"CD_AREA_AVALIACAO",
+            "NM_AREA_AVALIACAO",
+            "CD_CONCEITO_PROGRAMA",
+            "CD_CONCEITO_CURSO",
+            "NM_MODALIDADE_PROGRAMA",
+            "IN_REDE",
+            "DS_SITUACAO_PROGRAMA",
+            "NM_TESE_DISSERTACAO",
+            "NM_ORIENTADOR"
+
+		],
+
+		"export_sort_by": "AN_BASE",
+
+		"export_sort_op": "desc",
+
+		"max_rows": 100000,
+
+		"report_field": "",
+
+		"column_names": [],
+
+		"extra_column_names": []
+	},
+
+
+
+	"BUBBLE_CHART": {
+		"default_level_1": {
+			"value": "AN_BASE",
+			"label": "Ano de referência da coleta de dados"
+		},
+		"default_level_2": {
+			"value": "GrauAcademico",
+			"label": "Grau acadêmico do discente "
+		},
+		"default_level_3": {
+			"value": "Genero",
+			"label": "Sexo do discente"
+		},
+		"options": [{
+				"value": "AN_BASE",
+				"label": "Ano de referência da coleta de dados"
+			},
+			{
+				"value": "SituacaoDiscente",
+				"label": "Situação do discente"
+			},
+			{
+				"value": "GrauAcademico",
+				"label": "Grau acadêmico do discente"
+			},
+			{
+				"value": "QT_MES_TITULACAO",
+				"label": "Quantidade de meses para a titulação do discente"
+			},
+			{
+				"value": "Genero",
+				"label": "Sexo do discente"
+			},
+			{
+				"value": "idade",
+				"label": "Faixa etária do discente"
+			},
+			{
+				"value": "DS_TIPO_NACIONALIDADE_DISCENTE",
+				"label": "Nacionalidade do discente"
+			},
+			{
+				"value": "SG_INST_GEI",
+				"label": "Sigla da instituição do programa (Fapesp - Gei)"
+			},
+			{
+				"value": "cat_insti",
+				"label": "Tipo de instituição (Fapesp - Gei)"
+			},
+			{
+				"value": "CS_STATUS_JURIDICO",
+				"label": "Status jurídico da instituição (Capes)"
+			},
+			{
+				"value": "DS_DEPENDENCIA_ADMINISTRATIVA",
+				"label": " Dependência administrativa da instituição (Capes)"
+			},
+			{
+				"value": "CS_Natureza_Juridica",
+				"label": " Natureza jurídica da instituição (Fapesp - Gei)"
+			},
+            {
+				"value": "DS_ORGANIZACAO_ACADEMICA_Fapesp",
+				"label": " Organização acadêmica da instituição (Fapesp - Gei)"
+			},
+			{
+				"value": "NM_REGIAO",
+				"label": " Região geográfica da localização da instituição"
+			},
+			{
+				"value": "SG_UF_PROGRAMA",
+				"label": " Unidade da federação da localização da instituição"
+			},
+			{
+				"value": "NM_GRANDE_AREA_CONHECIMENTO",
+				"label": "Grande área do conhecimento do programa "
+			},
+			{
+				"value": "CD_CONCEITO_PROGRAMA",
+				"label": "Conceito do programa "
+			},
+			{
+				"value": "NM_MODALIDADE_PROGRAMA",
+				"label": "Modalidade do programa "
+			},
+			{
+				"value": "NM_GRAU_PROGRAMA",
+				"label": "Grau do Programa "
+			}
+
+		]
+	},
+
+	"MULTILEVEL_BARCHART_1": {
+		"default_level_1": "AN_BASE",
+		"default_level_2": "GrauAcademico",
+
+		"y_axis": [{
+				"value": "AN_BASE",
+				"label": "Ano de referência da coleta de dados"
+			},
+			{
+				"value": "SituacaoDiscente",
+				"label": "Situação do discente"
+			},
+			{
+				"value": "GrauAcademico",
+				"label": "Grau acadêmico do discente "
+			},
+			{
+				"value": "QT_MES_TITULACAO",
+				"label": "Quantidade de meses para a titulação do discente"
+			},
+			{
+				"value": "Genero",
+				"label": "Sexo do discente"
+			},
+			{
+				"value": "idade",
+				"label": "Faixa etária do discente"
+			},
+			{
+				"value": "DS_TIPO_NACIONALIDADE_DISCENTE",
+				"label": "Nacionalidade do discente"
+			},
+			{
+				"value": "SG_INST_GEI",
+				"label": "Sigla da instituição do programa (Fapesp - Gei)"
+			},
+			{
+				"value": "cat_insti",
+				"label": "Tipo de instituição (Fapesp - Gei)"
+			},
+			{
+				"value": "CS_STATUS_JURIDICO",
+				"label": "Status jurídico da instituição (Capes)"
+			},
+			{
+				"value": "DS_DEPENDENCIA_ADMINISTRATIVA",
+				"label": " Dependência administrativa da instituição (Capes)"
+			},
+			{
+				"value": "CS_Natureza_Juridica",
+				"label": " Natureza jurídica da instituição (Fapesp - Gei)"
+			},
+            {
+				"value": "DS_ORGANIZACAO_ACADEMICA_Fapesp",
+				"label": " Organização acadêmica da instituição (Fapesp - Gei)"
+			},
+			{
+				"value": "NM_REGIAO",
+				"label": " Região geográfica da localização da instituição"
+			},
+			{
+				"value": "SG_UF_PROGRAMA",
+				"label": " Unidade da federação da localização da instituição"
+			},
+			{
+				"value": "NM_GRANDE_AREA_CONHECIMENTO",
+				"label": "Grande área do conhecimento do programa"
+			},
+			{
+				"value": "CD_CONCEITO_PROGRAMA",
+				"label": "Conceito do programa"
+			},
+			{
+				"value": "NM_MODALIDADE_PROGRAMA",
+				"label": "Modalidade do programa"
+			},
+			{
+				"value": "NM_GRAU_PROGRAMA",
+				"label": "Grau do Programa"
+			}
+
+
+		],
+		"y_stratification": [
+
+            {
+    				"value": "AN_BASE",
+    				"label": "Ano de referência da coleta de dados"
+    			},
+    			{
+    				"value": "SituacaoDiscente",
+    				"label": "Situação do discente"
+    			},
+    			{
+    				"value": "GrauAcademico",
+    				"label": "Grau acadêmico do discente "
+    			},
+    			{
+    				"value": "QT_MES_TITULACAO",
+    				"label": "Quantidade de meses para a titulação do discente"
+    			},
+    			{
+    				"value": "Genero",
+    				"label": "Sexo do discente"
+    			},
+    			{
+    				"value": "idade",
+    				"label": "Faixa etária do discente"
+    			},
+    			{
+    				"value": "DS_TIPO_NACIONALIDADE_DISCENTE",
+    				"label": "Nacionalidade do discente"
+    			},
+    			{
+    				"value": "SG_INST_GEI",
+    				"label": "Sigla da instituição do programa (Fapesp - Gei)"
+    			},
+    			{
+    				"value": "cat_insti",
+    				"label": "Tipo de instituição (Fapesp - Gei)"
+    			},
+    			{
+    				"value": "CS_STATUS_JURIDICO",
+    				"label": "Status jurídico da instituição (Capes)"
+    			},
+    			{
+    				"value": "DS_DEPENDENCIA_ADMINISTRATIVA",
+    				"label": " Dependência administrativa da instituição (Capes)"
+    			},
+    			{
+    				"value": "CS_Natureza_Juridica",
+    				"label": " Natureza jurídica da instituição (Fapesp - Gei)"
+    			},
+                {
+    				"value": "DS_ORGANIZACAO_ACADEMICA_Fapesp",
+    				"label": " Organização acadêmica da instituição (Fapesp - Gei)"
+    			},
+    			{
+    				"value": "NM_REGIAO",
+    				"label": " Região geográfica da localização da instituição"
+    			},
+    			{
+    				"value": "SG_UF_PROGRAMA",
+    				"label": " Unidade da federação da localização da instituição"
+    			},
+    			{
+    				"value": "NM_GRANDE_AREA_CONHECIMENTO",
+    				"label": "Grande área do conhecimento do programa"
+    			},
+    			{
+    				"value": "CD_CONCEITO_PROGRAMA",
+    				"label": "Conceito do programa"
+    			},
+    			{
+    				"value": "NM_MODALIDADE_PROGRAMA",
+    				"label": "Modalidade do programa"
+    			},
+    			{
+    				"value": "NM_GRAU_PROGRAMA",
+    				"label": "Grau do Programa"
+    			}
+
+		]
+	},
+
+	"WORDCLOUD_CHART": {
+		"single_facet": {
+			"value": "TESE_DISSERTACAO_nuvem_palavras",
+			"label": "Nome da Tese "
+		},
+		"options": [
+			{
+				"value": "TESE_DISSERTACAO_nuvem_palavras",
+				"label": "Nome da Tese"
+			},
+			{
+				"value": "NM_ORIENTADOR_nuvem_palavras",
+				"label": "Nome do Orientador"
+			}
+            /* {
+    				"value": "PROGRAMA_IES_nuvem_palavras",
+    				"label": "Nome do Programa "
+    		},
+            {
+				"value": "ID_PESSOA_nuvem_palavras",
+				"label": "Cod ID do Discente"
+			},
+			{
+				"value": "SG_INST_GEI_nuvem_palavras",
+				"label": "Sigla Instituição Fapesp-Gei"
+			},
+			{
+				"value": "CD_PROGRAMA_IES_nuvem_palavras",
+				"label": "Cod do Programa"
+			} */
+
+		]
+	},
+
+	"QUERY_BUILDER": {
+		"plugins": ["bt-tooltip-errors"],
+		"filters": [{
+
+				"get_from_solr_field": "_text_",
+				"label": "Busca textual",
+				"operators": ["contains", "not_contains"],
+				"input": "text",
+				"type": "string"
+			},
+			/* {
+
+				"get_from_solr_field": "PROGRAMA_IES_busca",
+
+				"label": "Nome do Programa",
+
+				"operators": ["contains", "not_contains"],
+
+				"input": "autocomplete",
+
+				"solr_params": {
+
+					"q": "*:*",
+
+					"fl": "*",
+
+					"rows": "20",
+
+					"field": "PROGRAMA_IES_busca",
+
+					"facet_field": "NM_PROGRAMA_IES_exact"
+
+				},
+				"type": "string"
+			}, */
+			{
+				"get_from_solr_field": "TESE_DISSERTACAO_busca",
+				"label": "Nome da Tese",
+				"operators": ["equal", "not_equal"],
+				"input": "autocomplete",
+				"solr_params": {
+					"q": "*:*",
+					"fl": "*",
+					"rows": "20",
+					"field": "TESE_DISSERTACAO_busca",
+					"facet_field": "TESE_DISSERTACAO_busca"
+
+				},
+				"type": "string"
+			},
+
+			/* {
+				"get_from_solr_field": "ID_PESSOA_busca",
+				"label": "Cod ID do Discente",
+				"operators": ["equal", "not_equal"],
+				"input": "autocomplete",
+				"solr_params": {
+					"q": "*:*",
+					"fl": "*",
+					"rows": "20",
+					"field": "ID_PESSOA_busca",
+					"facet_field": "ID_PESSOA_exact"
+
+				},
+				"type": "string"
+			}, */
+
+			{
+				"get_from_solr_field": "NM_ORIENTADOR_busca",
+				"label": "Nome do Orientador",
+				"operators": ["equal", "not_equal"],
+				"input": "autocomplete",
+				"solr_params": {
+					"q": "*:*",
+					"fl": "*",
+					"rows": "20",
+					"field": "NM_ORIENTADOR_busca",
+					"facet_field": "NM_ORIENTADOR"
+
+				},
+				"type": "string"
+			}
+
+			/* {
+				"get_from_solr_field": "CD_PROGRAMA_IES_busca",
+				"label": "Cod do Programa",
+				"operators": ["equal", "not_equal"],
+				"input": "autocomplete",
+				"solr_params": {
+					"q": "*:*",
+					"fl": "*",
+					"rows": "20",
+					"field": "CD_PROGRAMA_IES_busca",
+					"facet_field": "CD_PROGRAMA_IES"
+
+				},
+				"type": "string"
+			},
+
+			{
+				"get_from_solr_field": "SG_INST_GEI_busca",
+				"label": "Sigla Instituição Fapesp-Gei",
+				"operators": ["equal", "not_equal"],
+				"input": "autocomplete",
+				"solr_params": {
+					"q": "*:*",
+					"fl": "*",
+					"rows": "20",
+					"field": "SG_INST_GEI_busca",
+					"facet_field": "SG_INST_GEI"
+
+				},
+				"type": "string"
+			} */
+
+		]
+	}
+}

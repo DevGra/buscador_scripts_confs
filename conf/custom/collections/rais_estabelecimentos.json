@@ -1,0 +1,106 @@
+{
+  "COLLECTION":{
+        "label": " RAIS - ESTABELECIMENTOS ",
+        "omite_secoes": ["refine", "busca", "documentos","docs_snippet", "related_collections", "pivot_table", "wordcloud", "gather_nodes","boxplot"],
+        /* "omite_secoes": ["refine", "documentos", "related_collections" ,"pivot_table", "gather_nodes","docs_snippet"], */
+        "campo_dinamico_busca": "cross_collection_rais_estabelecimentos"
+
+  },
+
+  "FACETS":[
+            {"groupBy": {"id": "geografico", "label": "GEOGRÁFICO", "order": 1},
+             "facetGroup": [
+                  {"label": "", "render": "barChart_1", "facets": [{"chave": "REGIAO_facet", "label": "Regiões"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "Regi_es_Adm_DF", "label": "Regiões de Brasília"}]}
+             ]},
+
+            {"groupBy": {"id": "estabelecimentos", "label": "ESTABELECIMENTOS", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Qtd_V_nculos_CLT", "label": "Quantidade de vínculos CLT"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Qtd_V_nculos_Ativos", "label": "Quantidade de vínculos ativos"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Qtd_V_nculos_Estatut_rios", "label": "Quantidade de vínculos estatutários"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Ind_Atividade_Ano", "label": "Indicador de atividade anual"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Ind_CEI_Vinculado", "label": "Indicador de CEi vinculado"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Ind_Estab_Participa_PAT", "label": "Indicador de estabelecimento pertencente ao PAT"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Ind_Rais_Negativa", "label": "Indicador de RAIS negativa"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Ind_Simples", "label": "Indicador de optante pelo SIMPLES"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Natureza_Jur_dica", "label": "Natureza Jurídica a partir da RAIS 2008"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "IBGE_Subsetor", "label": "IBGE Subsetor"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Tipo_Estab", "label": "Tipo do Estabelecimento"}]},
+                 /* {"label": "", "render": "barChart_1", "facets": [{"chave": "CEP_Estab", "label": "CEP do estabelecimento"}]}, */
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "Tamanho_Estabelecimento", "label": "Tamanho do Estabelecimento"}]}
+             ]}
+             /* {"groupBy": {"id": "cnae", "label": "CNAE", "order": 3},
+              "facetGroup": [
+                   {"label": "", "render": "barChart_1",
+                   "facets": [{"chave": "CNAE_95_Classe", "label": " Código CNAE 95 Classe"}]},
+                   {"label": "", "render": "barChart_1",
+                   "facets": [{"chave": "CNAE_2.0_Classe", "label": " Código CNAE 2.0"}]},
+                   {"label": "", "render": "barChart_1",
+                   "facets": [{"chave": "CNAE_2.0_Subclasse", "label": " Código CNAE 2.0 Subclasse"}]}
+
+              ]} */
+    ],
+
+    "OUTCOMES": [
+
+
+    ],
+
+
+  "SANKEY_CHART":{
+        "default_level_1": {"value": "Tipo_Estab", "label": "Tipo do Estabelecimento"},
+        "default_level_2": {"value": "UF", "label": "Estado"},
+        "options": [
+
+            {"value": "Tipo_Estab", "label": "Tipo do Estabelecimento"},
+            {"value": "Tamanho_Estabelecimento", "label": "Tamanho do Estabelecimento"},
+            {"value": "IBGE_Subsetor", "label": "Ramo de atividade"},
+            {"value": "UF", "label": "Estado"}
+        ]
+  },
+
+  "BUBBLE_CHART": {
+      "default_level_1": {"value": "Tamanho_Estabelecimento", "label": "Tamanho do Estabelecimento"},
+      "default_level_2": {"value": "UF", "label": "Estado"},
+      "options": [
+
+          {"value": "Tipo_Estab", "label": "Tipo do Estabelecimento"},
+          {"value": "Tamanho_Estabelecimento", "label": "Tamanho do Estabelecimento"},
+          {"value": "IBGE_Subsetor", "label": "Ramo de atividade"},
+          {"value": "UF", "label": "Estado"}
+        ]
+    },
+
+    "MULTILEVEL_BARCHART_1":{
+        "default_level_1": "Tipo_Estab",
+        "default_level_2":  "Tamanho_Estabelecimento",
+        "y_axis": [
+            {"value": "Tipo_Estab", "label": "Tipo do Estabelecimento"},
+            {"value": "Tamanho_Estabelecimento", "label": "Tamanho do Estabelecimento"},
+            {"value": "Ind_Rais_Negativa", "label": "Indicador de RAIS negativa"}
+        ],
+        "y_stratification": [
+            {"value": "Ind_Rais_Negativa", "label": "Indicador de RAIS negativa"},
+            {"value": "Tipo_Estab", "label": "Tipo do Estabelecimento"}
+        ]
+    }
+
+    /* "BOXPLOT_CHART":{
+          "default_level_1": "IBGE_Subsetor",
+          "default_level_2": "Tamanho_Estabelecimento",
+          "options_x": [
+              {"value": "Tipo_Estab", "label": "Tipo do Estabelecimento"},
+              {"value": "IBGE_Subsetor", "label": "Ramo de atividade"}
+
+          ],
+          "options_y": [
+              {"value": "Ind_Simples", "label": "Indicador de optante pelo SIMPLES"},
+              {"value": "Ind_Rais_Negativa", "label": "Indicador de RAIS negativa"},
+              {"value": "Tamanho_Estabelecimento", "label": "Tamanho do Estabelecimento"},
+              {"value": "Ind_Atividade_Ano", "label": "Indicador de atividade anual"}
+          ]
+    }, */
+
+}

@@ -1,0 +1,47 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+{
+  "COLLECTION":{
+    "label": "Autores de Publicações Científicas",
+    "omite_secoes": ["documentos", "busca", "refine", "sankey", "pivot_table", "wordcloud"],
+    "campo_dinamico_busca": "cross_collection_memoria_autoria"
+  },
+
+  "FACETS":[
+    {"groupBy": {"id": "class", "label": "Classificação", "order": 1},
+     "facetGroup": [
+         {"label": "Instituição", "render": "datas",
+          "facets": [{"chave": "instituicao_list_exact", "label": "Instituição do Autor"}]},
+         {"label": "País", "render": "barChart_1",
+          "facets": [{"chave": "pais_list_exact", "label": "País da Instituição"}]},
+         {"label": "Autor", "render": "barChart_1", "facets": [{"chave": "autor_exact", "label": "Autores"}]}
+     ]
+     }
+   ],
+
+  "OUTCOMES": [
+    /* {"label": "Autores com Instituição definida", "facet": {"instituicao_list": ["*"]},
+     "docs": {"url": "", "text": "snipet"}, "type": ["doc", "main"], "order": 1},
+    {"label": "Autores sem Instituição definida", "facet": {"-instituicao_list": ["*"]},
+     "docs": {"url": "", "text": "autor"}, "type": ["doc", "main"], "order": 2} */
+  ],
+
+  "SANKEY_CHART":null,
+  "BUBBLE_CHART": null,
+  "MULTILEVEL_BARCHART_1":{
+    "default_level_1": "autor_exact",
+    "default_level_2": "pais_list_exact",
+    "y_axis": [
+        {"value": "autor_exact", "label": "Autor"},
+        {"value": "instituicao_list_exact", "label": "Instituição"}
+    ],
+    "y_stratification": [
+        {"value": "pais_list_exact", "label": "País"},
+        {"value": "instituicao_list_exact", "label": "Instituição"}
+    ]
+  }
+}

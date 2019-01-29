@@ -1,0 +1,290 @@
+
+{
+  "COLLECTION":{
+        "label": "CAPES Teses",
+        "omite_secoes": ["refine", "documentos", "related_collections" ,"pivot_table", "gather_nodes","docs_snippet"],
+        "campo_dinamico_busca": "cross_collection_caged_teses"
+  },
+
+  "FACETS":[
+      {"groupBy": {"id": "sobre", "label": "Sobre a base", "order": 1},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "AN_BASE_facet", "label": "Ano Base de Coleta dos Dados CAPES Teses"}]}
+             ]},
+
+            {"groupBy": {"id": "info_prog", "label": "Informações do Programa", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "NM_PROGRAMA", "label": "Nome do Programa"}]}
+             ]},
+             {"groupBy": {"id": "info_prod", "label": "Informações da Produção", "order": 3},
+              "facetGroup": [
+                  {"label": "", "render": "barChart_1",
+                   "facets": [{"chave": "NM_SUBTIPO_PRODUCAO", "label": "Nome do Subtipo da Produção"}]},
+                   {"label": "", "render": "barChart_1",
+                    "facets": [{"chave": "NM_PRODUCAO", "label": "Nome da Produção"}]},
+                    {"label": "", "render": "barChart_1",
+                     "facets": [{"chave": "NM_PROJETO", "label": "Nome do Projeto"}]},
+                     {"label": "", "render": "barChart_1",
+                      "facets": [{"chave": "DT_TITULACAO", "label": "Data da Titulação"}]},
+                      {"label": "", "render": "barChart_1",
+                       "facets": [{"chave": "DS_PALAVRA_CHAVE", "label": "Descrição da Palavra Chave"}]},
+                       {"label": "", "render": "barChart_1",
+                        "facets": [{"chave": "DS_KEYWORD", "label": "Descrição do Keyword"}]},
+                        {"label": "", "render": "barChart_1",
+                         "facets": [{"chave": "DS_RESUMO", "label": "Descrição do Resumo"}]},
+                         {"label": "", "render": "barChart_1",
+                          "facets": [{"chave": "DS_ABSTRACT", "label": "Descrição do Abstract"}]}
+              ]},
+              {"groupBy": {"id": "info_titu", "label": "Informações da Titulação", "order": 4},
+               "facetGroup": [
+                     {"label": "", "render": "barChart_1",
+                      "facets": [{"chave": "DT_MATRICULA", "label": "Data da Matrícula do Discente"}]},
+                      {"label": "", "render": "barChart_1",
+                       "facets": [{"chave": "NM_GRAU_ACADEMICO", "label": "Nome do Grau Acadêmico ao qual o Discente está Vinculado"}]}
+               ]},
+               {"groupBy": {"id": "conhec_programa", "label": "Área do Conhecimento do Programa", "order": 5},
+                "facetGroup": [
+                    /* {"label": "", "render": "barChart_1",
+                     "facets": [{"chave": "AREA_CONHECIMENTO_facet", "label": "Área do conhecimento"}]}, */
+                     {"label": "", "render": "barChart_1",
+                      "facets": [{"chave": "NM_AREA_CONCENTRACAO", "label": "Nome da Área de Concentração"}]},
+                    {"label": "", "render": "barChart_1",
+                     "facets": [{"chave": "NM_LINHA_PESQUISA", "label": "Nome da Linha de Pesquisa"}]},
+                     {"label": "", "render": "barChart_1",
+                      "facets": [{"chave": "NM_AREA_CONHECIMENTO", "label": "Nome da Área de Conhecimento a que a Produção esta Vinculada"}]},
+                      {"label": "", "render": "barChart_1",
+                       "facets": [{"chave": "NM_AREA_AVALIACAO", "label": "Nome da Área de Avaliação"}]}
+
+                ]},
+
+            {"groupBy": {"id": "info_discente", "label": "Informações do Discente", "order": 6},
+             "facetGroup": [
+              {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "NM_DISCENTE", "label": "Nome do Discente"}]}
+
+             ]},
+            {"groupBy": {"id": "info_orientador", "label": "Informações do Orientador", "order": 7},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                     "facets": [{"chave": "NM_ORIENTADOR", "label": "Nome do Orientador"}]},
+              {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "IN_ORIENT_PARTICIPOU_BANCA", "label": "Indicador se o Orientador Participou da Banca"}]},
+              {"label": "", "render": "barChart_1",
+                 "facets": [{"chave": "NM_CATEGORIA_DOCENTE", "label": "Nome da Categoria do Docente"}]},
+                 {"label": "", "render": "barChart_1",
+                    "facets": [{"chave": "NM_TP_VINCULO", "label": "Nome do Tipo de vinculo"}]}
+
+             ]},
+             {"groupBy": {"id": "info_institu", "label": "Informações sobre a Instituição a qual está Vinculado o Programa", "order": 8},
+              "facetGroup": [
+                    {"label": "", "render": "barChart_1",
+                     "facets": [{"chave": "SG_ENTIDADE_ENSINO", "label": "Sigla da Instituição de Ensino"}]},
+                     {"label": "", "render": "barChart_1",
+                      "facets": [{"chave": "NM_ENTIDADE_ENSINO", "label": "Nome da Instituição de Ensino"}]}
+              ]},
+
+             {"groupBy": {"id": "geo_ies", "label": "Informações sobre a localização da Instituição a qual está Vinculado o Programa", "order": 9},
+              "facetGroup": [
+                    /* {"label": "", "render": "barChart_1",
+                     "facets": [{"chave": "GEOGRAFICO_IES_facet", "label": "Região Geográfica onde se Localiza a Instituição a qual o Programa de Pós-Graduação está Vinculado"}]}, */
+                     {"label": "", "render": "barChart_1",
+                      "facets": [{"chave": "NM_REGIAO", "label": "Região Geográfica onde se Localiza a Instituição a qual o Programa de Pós-Graduação está Vinculado"}]},
+                      {"label": "", "render": "barChart_1",
+                       "facets": [{"chave": "SG_UF_IES", "label": "Unidade da Federação onde se Localiza a Instituição a qual o Programa de Pós-Graduação está Vinculado"}]}
+              ]}
+
+
+
+    ],
+
+    "OUTCOMES": [
+        {"label": "Total de teses", "facet": {"id": ["*"]}, "docs": {}, "type": ["main"], "order": 1}
+
+    ],
+
+    "EXPORT_DATA":{
+      //"campos do solr que irao ser exportados em arquivo, fields devem ser docvalues"
+      "export_fields" : ["AN_BASE", "CD_PROGRAMA", "NM_PROGRAMA", "SG_ENTIDADE_ENSINO", "NM_ENTIDADE_ENSINO", "ID_ADD_PRODUCAO_INTELECTUAL", "ID_PRODUCAO_INTELECTUAL", "ID_SUBTIPO_PRODUCAO", "NM_SUBTIPO_PRODUCAO", "ID_AREA_CONCENTRACAO", "NM_AREA_CONCENTRACAO", "ID_LINHA_PESQUISA", "NM_LINHA_PESQUISA", "ID_PROJETO", "NM_PROJETO", "DH_INICIO_AREA_CONC", "DH_FIM_AREA_CONC", "DH_INICIO_LINHA", "DH_FIM_LINHA", "DT_TITULACAO", "DS_PALAVRA_CHAVE", "IN_TRABALHO_MESMA_AREA", "NM_TP_VINCULO", "IN_ORIENT_PARTICIPOU_BANCA", "DS_BIBLIOTECA_DEPOSITARIA", "ID_TP_EXPECTATIVA_ATUACAO", "NM_EXPECTATIVA_ATUACAO", "ID_PESSOA_DISCENTE", "NM_DISCENTE", "DT_MATRICULA", "ID_GRAU_ACADEMICO", "NM_GRAU_ACADEMICO", "NM_ORIENTADOR", "DS_CATEGORIA_ORIENTADOR", "NM_CATEGORIA_DOCENTE", "NM_REGIAO", "SG_UF_IES", "NM_UF_IES", "CD_GRANDE_AREA_CONHECIMENTO", "NM_GRANDE_AREA_CONHECIMENTO", "CD_AREA_CONHECIMENTO", "NM_AREA_CONHECIMENTO", "CD_SUBAREA_CONHECIMENTO", "NM_SUBAREA_CONHECIMENTO", "CD_ESPECIALIDADE", "NM_ESPECIALIDADE", "NM_AREA_AVALIACAO", "DS_EMAIL_DISCENTE", "NR_VOLUME", "NR_PAGINAS", "NM_IDIOMA",  "DS_URL_TEXTO_COMPLETO", "ID_PESSOA_ORIENTADOR"],
+      //"campo usado para ordenar resultados"
+      "export_sort_by" : "AN_BASE" ,
+      //"campo usado para definir operador de ordenação"
+      "export_sort_op" : "desc",
+      //"limita numera maximo de documentos a serem exportados"
+        "max_rows" : 100000,
+      // "Caso haja um unico campo pre-gerado para relatorio com todos os dados em formato csv, indicar o nome do campo."
+      "report_field" : "",
+      // "Caso seja determinado um campo pre-gerado acima, pode-se listar o nome das colunas. Caso contrario as colunas irao sem nome."
+      "column_names": [],
+
+    // "Colunas extras para o caso de algum controle de acesso etc."
+    "extra_column_names" :[]
+    },
+
+
+  "SANKEY_CHART":{
+      "default_level_1": {"value": "NM_REGIAO", "label": "Região do Programa"},
+        "default_level_2": {"value": "NM_GRAU_ACADEMICO", "label": "Grau Acadêmico ao qual o discente está vinculado"},
+        "options": [{"value": "NM_GRAU_ACADEMICO", "label": "Grau Acadêmico ao qual o discente está vinculado"},
+                    {"value": "NM_REGIAO", "label": "Região do Programa"},
+                    {"value": "DS_CATEGORIA_ORIENTADOR", "label": "Categoria do Orientador"},
+                    {"value": "NM_GRANDE_AREA_CONHECIMENTO", "label": "Grande área do conhecimento"},
+                    {"value": "NM_AREA_CONHECIMENTO", "label": "Área do conhecimento"}
+
+                    ]
+  },
+
+  "BUBBLE_CHART": {
+      "default_level_1": {"value": "NM_REGIAO", "label": "Região do Programa"},
+        "default_level_2": {"value": "NM_GRAU_ACADEMICO", "label": "Grau Acadêmico ao qual o discente está vinculado"},
+        "options": [{"value": "NM_GRAU_ACADEMICO", "label": "Grau Acadêmico ao qual o discente está vinculado"},
+                    {"value": "NM_REGIAO", "label": "Região do Programa"},
+                    {"value": "DS_CATEGORIA_ORIENTADOR", "label": "Categoria do Orientador"},
+                    {"value": "NM_GRANDE_AREA_CONHECIMENTO", "label": "Grande área do conhecimento"}
+
+
+                    ]
+                },
+  "BOXPLOT_CHART":{
+       "default_level_1": {"value": "NM_REGIAO", "label": "Região do Programa"},
+        "default_level_2": {"value": "NR_PAGINAS", "label": "Número de páginas da produção"},
+        "options_x": [
+            {"value": "NM_GRAU_ACADEMICO", "label": "Grau Acadêmico ao qual o discente está vinculado"},
+                        {"value": "NM_REGIAO", "label": "Região do Programa"},
+                        {"value": "DS_CATEGORIA_ORIENTADOR", "label": "Categoria do Orientador"},
+                        {"value": "NM_TP_VINCULO", "label": "Tipo de vínculo do Orientador"},
+                        {"value": "NM_GRANDE_AREA_CONHECIMENTO", "label": "Grande área do conhecimento"},
+                        {"value": "AN_BASE", "label": "Ano Base de Coleta dos Dados CAPES Teses"}
+        ],
+        "options_y": [
+            {"value": "NR_PAGINAS", "label": "Número de páginas da produção"}
+        ]
+  },
+  "WORDCLOUD_CHART":{
+      "single_facet": {"value": "NM_PRODUCAO_nuvem_palavras", "label": "Produção"},
+        "options": [
+            {"value": "NM_PRODUCAO_nuvem_palavras", "label": "Produção"},
+            {"value": "DS_PALAVRA_CHAVE_nuvem_palavras", "label": "Palavra chave PT"},
+            {"value": "DS_RESUMO_nuvem_palavras", "label": "Resumo PT"},
+            {"value": "DS_KEYWORD_nuvem_palavras", "label": "Keywords EN"},
+            {"value": "DS_ABSTRACT_nuvem_palavras", "label": "Abstract EN"}
+
+          ]
+  },
+    "MULTILEVEL_BARCHART_1":{
+        "default_level_1": "NM_REGIAO",
+        "default_level_2": "NM_AREA_CONHECIMENTO",
+        "y_axis": [{"value": "NM_GRAU_ACADEMICO", "label": "Grau Acadêmico ao qual o discente está vinculado"},
+                    {"value": "NM_REGIAO", "label": "Região do Programa"},
+                    {"value": "DS_CATEGORIA_ORIENTADOR", "label": "Categoria do Orientador"},
+                    {"value": "NM_AREA_CONHECIMENTO", "label": "Área do conhecimento"}
+                ],
+        "y_stratification": [{"value": "NM_GRAU_ACADEMICO", "label": "Grau Acadêmico ao qual o discente está vinculado"},
+                    {"value": "NM_REGIAO", "label": "Região do Programa"},
+                    {"value": "DS_CATEGORIA_ORIENTADOR", "label": "Categoria do Orientador"},
+                    {"value": "NM_GRANDE_AREA_CONHECIMENTO", "label": "Grande área do conhecimento"}
+
+                    ]
+    },
+    "QUERY_BUILDER":{
+          "plugins" : ["bt-tooltip-errors"],
+          "filters" : [
+            {
+
+              "get_from_solr_field": "_text_",
+              "label": "Busca textual",
+              "operators": ["contains", "not_contains"],
+              "input": "text",
+              "type": "string"
+            },
+            {
+              // campo pesquisado no solr pelo getData(), manter mesmo valor de facet_field quando usado autocomplete
+              "get_from_solr_field": "NM_PRODUCAO_busca",
+              // label do campo de seleção do filtro
+              "label": "Nome da Produção",
+              // operadores logicos utilizados pelo querybuilder
+              "operators": ["equal", "not_equal"],
+              // função usada pelo querybuilder para construir o input, definido em bv_querybuilder.js
+              "input": "autocomplete",
+              // parametro extras do autocomplete
+              "solr_params": {
+                // parametro do solr
+                "q" : "*:*",
+                // parametro do solr
+                "fl" : "*",
+                // numero de itens que aparecem na listagem de autocomplete
+                "rows": "20",
+                // campo de busca da query
+                "field": "NM_PRODUCAO_busca",
+
+                // campo que é usado para gerar lista de intes facetados no auto_com
+                "facet_field" : "NM_PRODUCAO_busca"
+
+               } ,
+              "type": "string"
+          },
+            {
+              "get_from_solr_field": "DS_PALAVRA_CHAVE_busca",
+              "label": "Palavra chave PT",
+              "operators": ["equal", "not_equal"],
+              "input": "autocomplete",
+              "solr_params": {
+                "q" : "*:*",
+                "fl" : "*",
+                "rows": "20",
+                "field": "DS_PALAVRA_CHAVE_busca",
+                "facet_field" : "DS_PALAVRA_CHAVE_exact"
+
+               } ,
+              "type": "string"
+          },
+          {
+            "get_from_solr_field": "DS_RESUMO_busca",
+            "label": "Resumo PT",
+            "operators": ["equal", "not_equal"],
+            "input": "autocomplete",
+            "solr_params": {
+              "q" : "*:*",
+              "fl" : "*",
+              "rows": "20",
+              "field": "DS_RESUMO_busca",
+              "facet_field" : "DS_RESUMO_str_search"
+
+             } ,
+            "type": "string"
+        },
+        {
+          "get_from_solr_field": "DS_KEYWORD_busca",
+          "label": "Keyword EN",
+          "operators": ["equal", "not_equal"],
+          "input": "autocomplete",
+          "solr_params": {
+            "q" : "*:*",
+            "fl" : "*",
+            "rows": "20",
+            "field": "DS_KEYWORD_busca",
+            "facet_field" : "DS_KEYWORD_exact"
+
+           } ,
+          "type": "string"
+      },
+      {
+        "get_from_solr_field": "DS_ABSTRACT_busca",
+        "label": "Abstract EN",
+        "operators": ["equal", "not_equal"],
+        "input": "autocomplete",
+        "solr_params": {
+          "q" : "*:*",
+          "fl" : "*",
+          "rows": "20",
+          "field": "DS_ABSTRACT_busca",
+          "facet_field" : "DS_ABSTRACT_str_search"
+
+         } ,
+        "type": "string"
+    }
+
+          ]
+    }
+}

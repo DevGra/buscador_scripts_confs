@@ -1,0 +1,168 @@
+{% load staticfiles %}
+
+
+<html>
+
+
+
+<head>
+<script type="text/javascript" src={% static "solr_front/js/external_lib/jquery.js" %}></script>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--bootstrap-->
+<link href="{% static "solr_front/css/external_lib/jumbotron.css" %}" rel="stylesheet">
+<link href="{% static "third_part/bootstrap/4.1/bootstrap.min.css" %}" rel="stylesheet">
+<!--fim-bootstrap-->
+<title>Indicadores de C&T</title>
+</head>
+
+<body>
+
+
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Indicadores de Ciência e Tecnologia</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+          <li class="nav-item">
+            <a class="nav-link" href="../docs/">Documentação técnica</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Documentação usuário</a>
+          </li>
+          <!--
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        -->
+        </ul>
+        <!--
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      -->
+      </div>
+    </nav>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Indicadores de C&T</h1>
+          <p>Bem vindo ao sistema de visualização e análises de indicadores de ciencia e tecnologia.</p>
+          <p></p>
+          <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>-->
+        </div>
+      </div>
+
+
+
+
+
+      <div class="container">
+
+      {% if navigate_fieds %}
+
+        <h2>{{ erro.titulo }}</h2>
+        <p>{{ erro.descricao }}</p>
+
+          <h3>Nova pesquisa</h3>
+          <p>Ao se iniciar uma nova pesquisa, todos os parâmetros da pesquisa atual serão perdidos.</p>
+          <p>Clique <a href="{% url 'clean_session' id=0 template=template %}">aqui</a> para iniciar uma nova pesquisa.</p>
+
+          <hr>
+          <h3>Continuar pesquisa existente</h3>
+          <p>Você pode continuar a pesquisa que já existe escolhendo uma etapa abaixo para continuar</p>
+          <ul>
+            {% for nf  in navigate_fieds  %}
+            		      <li><b>{{ nf.id }} - </b><a href="{% url 'params_id' collection=nf.collection  id=nf.id template=template %}">{{ nf.title }}</a> - <a href="{% url 'clean_session' id=nf.id template=template %}">Excluir essa etapa da pesquisa!</a></li>
+            {% endfor %}
+          </ul>
+
+      {% else %}
+        <h2>CAPES</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>CAPES - Discentes</h3>
+            <p>Os dados desta seção se referem as informações dos Discentes da Pós-Graduação stritcto sensu no Brasil,
+                referentes ao período de 2013 a 2017, tais como: atributos pessoais do discente, informações sobre a matrícula,
+                sobre o programa de pós-graduação e a instituição a qual está vinculado o programa.
+            </p>
+            <p>Os registros correspondem as todas matrículas dos discentes de programas de pós-graduação stritcto sensu efetuadas
+                durante o ano de referência, sendo que a situação do discente (abandonou, desligado, matriculado, titulado e mudança
+                de nível sem defesa) no programa se refere a data de 31 de dezembro do referido ano.
+            </p>
+            <p><a class="btn btn-secondary" href="{% url 'params_id' collection='capes_discentes' id=0 template=template %}"  role="button">Analisar &raquo;</a></p>
+          </div>
+          <div class="col-md-6">
+            <h3>CAPES Docentes</h3>
+            <p> Os dados desta seção se referem as informações dos Docentes da Pós-Graduação stritcto sensu no Brasil,
+                referentes ao período de 2013 a 2017, tais como: atributos pessoais do docente, informações sobre sua última titulação,
+                sobre seu vínculo com o programa e com a instituição a qual está vinculado o programa. Também, apresenta informações
+                sobre o programa de pós-graduação e a instituição a qual está vinculado o programa.
+            </p>
+            <p>Os registros correspondem aos a vínculos de professores em programas de Pós-Graduação, ou seja,
+                um professor pode estar vinculado a mais que um programa de Pós-Graduação.
+            </p>
+            <p><a class="btn btn-secondary" href="{% url 'params_id' collection='capes_docentes' id=0 template=template %}"  role="button">Analisar &raquo;</a></p>
+          </div>
+          <div class="col-md-6">
+            <h3>CAPES Teses</h3>
+            <p>Os dados desta seção contêm informações sobre as Teses e Dissertações da Pós-Graduação consolidadas a partir do COLETA CAPES,
+                referentes ao período de 2013 a 2017, tais como informações sobre: produção (tipo do produção – tese, dissertações e outras, data da defesa,
+                nome, descrições da palavra-chave e resumo), discente, orientador, titulação (grau acadêmico ao qual o discente está vinculado, data da matrícula),
+                área de conhecimento da tese ou dissertação, instituição de ensino superior e sua localização da IES a qual o autor está vinculado.
+             </p>
+            <p><a class="btn btn-secondary" href="{% url 'params_id' collection='capes_teses' id=0 template=template %}"  role="button">Analisar &raquo;</a></p>
+          </div>
+          <div class="col-md-6">
+            <h3>CAPES Programas</h3>
+            <p>Nesta seção os dados se referem as informações sobre Programas de Pós-Graduação stritcto sensu no Brasil, referentes ao período de 2013 a 2017,
+             tais como características e situação do programa, a nota de avaliação do programa e a área do conhecimento e instituição a qual está vinculado
+             o programa. </p>
+            <p><a class="btn btn-secondary" href="{% url 'params_id' collection='capes_programas' id=0 template=template %}"  role="button">Analisar &raquo;</a></p>
+          </div>
+      {% endif %}
+      </div>
+    </div>
+
+
+    </main>
+    <hr>
+
+    <footer class="container">
+      <p>Produto desenvolvido com o apoio técnico da Biblioteca Virtual da FAPESP - <a href="http://www.bv.fapesp.br">BV FAPESP</a>
+        <br>
+        <a href="https://gitlab.com/bv_fapesp/solr_front/blob/master/LICENSE">Licença do sistema</a>
+     </p>
+
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src='{% static "solr_front/js/external_lib/jquery-3.3.1.slim.min.js" %}' integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src={% static "third_part/bootstrap/4.1/popper.min.js" %}></script>
+    <script src={% static "third_part/bootstrap/4.1/bootstrap.min.js" %}></script>
+    <script>window.jQuery || document.write('<script src={% static "third_part/bootstrap/4.1/jquery-slim.min.js" %}><\/script>')</script>
+  </body>
+
+
+
+</html>

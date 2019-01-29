@@ -1,0 +1,75 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+{
+  "COLLECTION":{
+    "label": "Empresas do PIPE",
+    "omite_secoes": ["outros_indicadores", "busca", "refine", "sankey", "pivot_table", "wordcloud", "boxplot", "gather_nodes"],
+    "campo_dinamico_busca": "cross_collection_bv_empresas"
+  },
+
+  "FACETS":[
+    {"groupBy": {"id": "class", "label": "Classificação", "order": 0},
+     "facetGroup": [
+         {"label": "Município", "render": "barChart_1",
+          "facets": [{"chave": "municipio_cpd", "label": "Município"}]},
+         {"label": "CNAE", "render": "barChart_1", "facets": [{"chave": "lista_cnae", "label": "CNAE"}]}
+     ]},
+    {"groupBy": {"id": "temporal", "label": "Temporal", "order": 1},
+     "facetGroup": [
+         {"label": "Acumulado por ano de entrada no Programa PIPE", "render": "barChart_1",
+          "facets": [{"chave": "ano_primeiro_processo", "label": "Entrada no programa PIPE"}]}
+     ]}
+  ],
+
+
+    "EXPORT_DATA":{
+      //"campos do solr que iram ser exportados em arquivo, fields devem ser docvalues"
+      "export_fields" : ["razao_social_exact", "municipio_cpd", "quantidade_projetos", "ano_primeiro_processo"],
+      //"campo usado para ordenar resultados"
+      "export_sort_by" : "ano_primeiro_processo" ,
+      //"campo usado para definir operador de ordenação"
+      "export_sort_op" : "asc",
+      //"limita numera maximo de documentos a serem exportados"
+      "max_rows" : 10000,
+      // "Caso haja um unico campo pre-gerado para relatorio com todos os dados em formato csv, indicar o nome do campo."
+      "report_field" : "",
+      // "Caso seja determinado um campo pre-gerado acima, pode-se listar o nome das colunas. Caso contrario as colunas irao sem nome."
+      "column_names": ["Razão Social",
+                 "Município",
+                 "Qt. Projetos FAPESP",
+                 "Ano do primeiro fomento (caso tenha tido mais de um)"],
+
+    // "Colunas extras para o caso de algum controle de acesso etc."
+    "extra_column_names" :[]
+    },
+
+
+
+  "OUTCOMES": [
+//    {"label": "Empresas com Projetos PIPE apoiados", "facet": {"quantidade_projetos": "[1 TO *]"},
+//     "docs": {"url": "absolute_url_pt_t", "text": "razao_social"}, "type": ["doc", "main"], "order": 2},
+ //   {"label": "Empresa sem Projetos", "facet": {"quantidade_projetos": ["0"]}, "docs": {}, "type": ["main"],
+ //    "order": 3},
+    {"label": "Total de Empresas ", "facet": {"*": ["*"]}, "docs": {}, "type": ["main"], "order": 1}
+  ],
+
+  "SANKEY_CHART":null,
+  "BUBBLE_CHART": null,
+  "MULTILEVEL_BARCHART_1":{
+    "default_level_1": "municipio_cpd",
+    "default_level_2": "ano_primeiro_processo",
+    "y_axis": [
+        {"value": "ano_primeiro_processo", "label": "Entrada no Programa PIPE"},
+        {"value": "lista_cnae", "label": "CNAE"},
+        {"value": "municipio_cpd", "label": "Municipio"}
+    ],
+    "y_stratification": [
+        {"value": "lista_cnae", "label": "CNAE"},
+        {"value": "municipio_cpd", "label": "Municipio"}
+    ]
+  }
+}

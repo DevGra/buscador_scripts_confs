@@ -1,0 +1,411 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+// TODO: Dividir a COLLECTION em FACETS, TOTALIZADORES.
+
+{
+  "COLLECTION":{
+    "label": "Projetos de Pesquisa (Auxílios e Bolsas)",
+    "omite_secoes": ["refine", "stackedbarchart", "boxplot", "sankey"],
+    "campo_dinamico_busca": "cross_collection_auxilios"
+  },
+
+  "ACCESS_CONTROL":{
+    //"Black-List de campos indexados"
+    "public":["situacao","instituicao", "projetos_pai_valor_desemb","bolsas_pai_valor_desemb","valor_desembolsado","projetos_pai_valor_conc","valor_vinc_concedido","bolsas_pai_valor_conc","valor_vinc_desembolsado", "valor_concedido"],
+    "django_auth":[]
+  },
+
+  "FACETS":[
+      {"groupBy": {"id": "projetos", "label": "Projetos de Pesquisa", "order": 0},
+       "facetGroup": [
+
+           {"label": "Bolsas", "render": "halfPieChart", "facets": [{"chave": "bolsas_pt", "label": "Bolsas"}]},
+
+           {"label": "Auxilios", "render": "barChart_1",
+            "facets": [{"chave": "auxilio_pesquisa_pt", "label": "Auxílios à Pesquisa"}]},
+
+            {"label": "Situação", "render": "halfPieChart",
+             "facets": [{"chave": "situacao", "label": "Situação"}]}
+
+
+       ]},
+      {"groupBy": {"id": "area", "label": "Tabela de Áreas", "order": 1},
+       "facetGroup": [
+           {"label": "", "render": "barChart_1", "facets": [{"chave": "area_pt", "label": "Área do conhecimento"}]}
+
+       ]},
+       {"groupBy": {"id": "inst_sede", "label": "Instituições", "order": 1},
+        "facetGroup": [
+            {"label": "", "render": "barChart_1", "facets": [{"chave": "inst_facet", "label": "Instituições-sede de pesquisa"}]},
+            {"label": "", "render": "barChart_1", "facets": [{"chave": "inst_ext_facet", "label": "Instituições de ensino e pesquisa no exterior"}]}
+        ]},
+      {"groupBy": {"id": "acordos", "label": "Acordos e Convênios / Colaborações internacionais", "order": 2},
+       "facetGroup": [
+           {"label": "Convênios e Acordos / Colaborações internacionais", "render": "barChart_1",
+            "facets": [{"chave": "tipo_convenio_exact", "label": "Tipos de convênio"},
+                       {"chave": "acordos_convenios_pt_facet", "label": "Convênios e Acordos"},
+                       {"chave": "geografico_convenio_facet", "label": "Geográfico (Acordos e convênios)"},
+                       {"chave": "geografico_colaboracao_facet", "label": "Geográfico (Colaborações internacionais)"}
+                  ]}
+
+       ]},
+       {"groupBy": {"id": "prog", "label": "Programas", "order": 3},
+       "facetGroup": [
+         {"label": "Programas", "facets": [{"chave": "programa_tema_pt", "label": "Voltados a Temas Específicos"},
+           {"chave": "programa_aplicacao_pt", "label": "Direcionados a Aplicações"},
+           {"chave": "programa_percepcao_pt", "label": "Percepção Pública da Ciência"},
+           {"chave": "programa_infra_pt", "label": "Infraestrutura de Pesquisa"}]}
+           ]},
+      {"groupBy": {"id": "geolocalizacao", "label": "Geolocalização", "order": 4},
+       "facetGroup": [
+           {"label": "Geolocalização Exterior", "render": "barChart_1", "facets": [
+               {"chave": "cidade_exact", "label": "Cidade de origem"}]}
+       ]},
+      {"groupBy": {"id": "temporal", "label": "Série Temporal", "order": 5},
+       "facetGroup": [
+          {"label": "", "render": "", "facets": [{"chave": "ano_inicio", "label": "Início do projeto"}]},
+          {"label": "", "render": "", "facets": [{"chave": "ano_termino", "label": "Término do projeto"}]}
+       ]},
+       {"groupBy": {"id": "publ", "label": "Com publicações", "order": 6},
+        "facetGroup": [
+            {"label": "", "render": "", "facets": [{"chave": "publicacoes_cientificas_exact", "label": "Publicações Científicas"}]},
+            {"label": "", "render": "", "facets": [{"chave": "publicacoes_academicas_exact", "label": "Publicações acadêmicas"}]}
+        ]},
+
+        {"groupBy": {"id": "emp", "label": "Empresas", "order": 6},
+         "facetGroup": [
+             {"label": "", "render": "", "facets": [{"chave": "empresa_novo_exact", "label": "Empresas do PIPE"}]}
+         ]}
+
+
+    ],
+
+    "OUTCOMES": [
+
+        {"label": "Bolsas no Brasil - Em andamento",
+         "facet": {"fomento_status_facet": ["Bolsa no país em andamento"]},
+         "docs": {"url": "absolute_url_pt_t", "text": "titulo_pt_t"}, "type": ["doc", "main"], "order": 13},
+        {"label": "Bolsas no Brasil - Concluídas",
+         "facet": {"fomento_status_facet": ["Bolsa no país concluída"]},
+         "docs": {"url": "absolute_url_pt_t", "text": "titulo_pt_t"}, "type": ["doc", "main"], "order": 14},
+        {"label": "Bolsas no Exterior - Em andamento",
+         "facet": {"fomento_status_facet": ["Bolsa no exterior em andamento"]},
+         "docs": {"url": "absolute_url_pt_t", "text": "titulo_pt_t"}, "type": ["doc", "main"], "order": 15},
+        {"label": "Bolsas no Exterior - Concluídas",
+         "facet": {"fomento_status_facet": ["Bolsa no exterior concluída"]},
+         "docs": {"url": "absolute_url_pt_t", "text": "titulo_pt_t"}, "type": ["doc", "main"], "order": 16},
+        {"label": "Auxílios à pesquisa - Em andamento", "facet": {"auxilio": ["*"], "situacao": ["Em andamento"]},
+         "docs": {"url": "absolute_url_pt_t", "text": "titulo_pt_t"}, "type": ["doc", "main"], "order": 11},
+        {"label": "Auxílios à pesquisa - Concluídos", "facet": {"auxilio": ["*"], "situacao": ["Concluídos"]},
+         "docs": {"url": "absolute_url_pt_t", "text": "titulo_pt_t"}, "type": ["doc", "main"], "order": 12},
+        {"label": "Com Publicações Científicas", "facet": {"publicacoes_cientificas_exact": ["Sim"]}, "docs": {},
+         "type": ["secondary"], "order": 2},
+        {"label": "Com Publicações Acadêmicas", "facet": {"publicacoes_academicas_exact": ["Sim"]}, "docs": {},
+         "type": ["secondary"], "order": 3},
+        {"label": "Com Matéria na Revista FAPESP", "facet": {"materias_revista_exact": ["Sim"]}, "docs": {},
+         "type": ["secondary"], "order": 4},
+        {"label": "Com Matéria na Agência FAPESP", "facet": {"materias_agencia_exact": ["Sim"]}, "docs": {},
+         "type": ["secondary"], "order": 5}
+    ],
+
+
+  "SANKEY_CHART":{
+      "default_level_1": {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+      "default_level_2": {"value": "situacao", "label": "Situação"},
+      "options": [
+          {"value": "situacao", "label": "Situação"},
+          {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+          {"value": "data_termino_ano_exact", "label": "Ano de conclusão"},
+          {"value": "bolsas_pt", "label": "Bolsa"},
+          {"value": "auxilio_pesquisa_pt", "label": "Auxílio a Pesquisa"},
+          // {"value":"area_pt", "label":"Área do conhecimento"},
+          // {"value":"convenio_exact", "label":"Convênio"},
+          {"value": "tipo_convenio_exact", "label": "Tipos de convênio"},
+          {"value": "pais_convenio_exact", "label": "País de convênio"}
+      ]
+  },
+
+  "PIVOT_TABLE":{
+      "default_level_1": {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+      "default_level_2": {"value": "situacao", "label": "Situação"},
+      "options": [
+          {"value": "situacao", "label": "Situação"},
+          {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+          {"value": "data_termino_ano_exact", "label": "Ano de conclusão"},
+          {"value": "bolsas_pt", "label": "Bolsa"},
+          {"value": "auxilio_pesquisa_pt", "label": "Auxílio a Pesquisa"},
+          // {"value":"area_pt", "label":"Área do conhecimento"},
+          // {"value":"convenio_exact", "label":"Convênio"},
+          {"value": "tipo_convenio_exact", "label": "Tipos de convênio"},
+          {"value": "pais_convenio_exact", "label": "País de convênio"}
+      ]
+  },
+
+  "BUBBLE_CHART": {
+        "default_level_1": {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+        "default_level_2": {"value": "area_pt", "label": "Área do conhecimento"},
+        "options": [
+            {"value": "situacao", "label": "Situação"},
+            {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+            {"value": "data_termino_ano_exact", "label": "Ano de conclusão"},
+            {"value": "bolsas_pt", "label": "Bolsa"},
+            {"value": "auxilio_pesquisa_pt", "label": "Auxílio a Pesquisa"},
+            {"value": "area_pt", "label": "Área do conhecimento"},
+            {"value": "convenio_exact", "label": "Convênio"},
+            {"value": "tipo_convenio_exact", "label": "Tipos de convênio"},
+            {"value": "pais_convenio_exact", "label": "País de convênio"}
+        ]
+    },
+
+    "WORDCLOUD_CHART":{
+        "single_facet": {"value": "titulo_resumo_nuvem_palavras", "label": "Título, resumo, área, assuntos"},
+        "options": [
+          {"value": "titulo_resumo_nuvem_palavras", "label": "Título, resumo, área, assuntos"},
+          {"value": "assuntos", "label": "assuntos"}
+        ],
+        "nao_rotaciona":1
+    },
+
+    "MULTILEVEL_BARCHART_1":{
+        "default_level_1": "situacao",
+        "default_level_2": "data_inicio_ano_exact",
+        "y_axis": [
+            {"value": "situacao", "label": "Situação"},
+            {"value": "bolsas_pt", "label": "Bolsas"},
+            {"value": "auxilio_pesquisa_pt", "label": "Auxílios"},
+            //{"value": "area_pt", "label": "Área do conhecimento"},
+            {"value": "entidade_exact", "label": "Instituição"},
+            {"value": "programa_tema_pt", "label": "Programa Tema"},
+            {"value": "programa_aplicacao_pt", "label": "Direcionados a Aplicações"},
+            {"value": "programa_percepcao_pt", "label": "Percepção Pública da Ciência"},
+            {"value": "programa_infra_pt", "label": "Infraestrutura de Pesquisa"},
+            {"value": "tipo_convenio_exact", "label": "Tipos de convênio"},
+            {"value": "convenio_exact", "label": "Convênio/Acordo"},
+            {"value": "pais_convenio_exact", "label": "País convênio"},
+            {"value": "pais_colaboracao_exact", "label": "Colaboração no país"},
+            {"value": "cidade_colaboracao_exact", "label": "Colaboração na cidade"},
+            {"value": "cidade_exact", "label": "Cidade"},
+            {"value": "data_inicio_ano_exact", "label": "Ano início"},
+            {"value": "data_termino_ano_exact", "label": "Ano de conclusão"}
+        ],
+        "y_stratification": [
+            {"value": "situacao", "label": "Situação"},
+            {"value": "bolsas_pt", "label": "Bolsas"},
+            {"value": "auxilio_pesquisa_pt", "label": "Auxílios"},
+            //{"value": "area_pt", "label": "Área do conhecimento"},
+            {"value": "entidade_exact", "label": "Instituição"},
+            {"value": "programa_tema_pt", "label": "Programa Tema"},
+            {"value": "programa_aplicacao_pt", "label": "Direcionados a Aplicações"},
+            {"value": "programa_percepcao_pt", "label": "Percepção Pública da Ciência"},
+            {"value": "programa_infra_pt", "label": "Infraestrutura de Pesquisa"},
+            {"value": "tipo_convenio_exact", "label": "Tipos de convênio"},
+            {"value": "convenio_exact", "label": "Convênio/Acordo"},
+            {"value": "pais_convenio_exact", "label": "País convênio"},
+            {"value": "pais_colaboracao_exact", "label": "Colaboração no país"},
+            {"value": "cidade_colaboracao_exact", "label": "Colaboração na cidade"},
+            {"value": "cidade_exact", "label": "Cidade"},
+            {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+            {"value": "data_termino_ano_exact", "label": "Ano de conclusão"},
+
+            {"value": "fomento_facet", "sum":"valor_concedido", "label": "Financeiro - Linhas de fomento agrupadas"},
+            {"value": "fomento_status_facet", "sum":"valor_concedido", "label": "Financeiro - Linhas de fomento segundo vigência"},
+            {"value": "area_pt", "sum":"valor_concedido", "label": "Financeiro - Áreas de conhecimento"}
+        ]
+    },
+    "BOXPLOT_CHART":{
+          "default_level_1": {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+          "default_level_2": {"value": "valor_concedido", "label": "Valor concedido"},
+          "options_x": [
+              {"value": "data_inicio_ano_exact", "label": "Ano de início"},
+              {"value": "data_termino_ano_exact", "label": "Ano de conclusão"},
+              {"value": "area_pt", "label": "Área do conhecimento"},
+              {"value": "bolsas_pt", "label": "Bolsas"}
+          ],
+          "options_y": [
+              {"value": "valor_concedido", "label": "Valor concedido"}
+          ]
+    },
+
+    "QUERY_BUILDER":{
+      "plugins" : ["bt-tooltip-errors"],
+      "filters" : [
+        {
+
+          "get_from_solr_field": "text",
+          "label": "Busca textual",
+          "operators": ["contains", "not_contains"],
+          "input": "text",
+          "type": "string"
+        },
+        {
+          // campo pesquisado no solr pelo getData().
+          // Pode ou não ser o mesmo valor de facet_field quando usado autocomplete
+          "get_from_solr_field": "area",
+          // label do campo de seleção do filtro
+          "label": "Tabela de Áreas",
+          // operadores logicos utilizados pelo querybuilder
+          "operators": ["equal", "not_equal"],
+          // função usada pelo querybuilder para construir o input, definido em bv_querybuilder.js
+          "input": "autocomplete",
+          // parametro extras do autocomplete
+          "solr_params": {
+            // parametro do solr
+            "q" : "*:*",
+            // parametro do solr
+            "fl" : "*",
+            // numero de itens que aparecem na listagem de autocomplete
+            "rows": "20",
+            // campo de busca da query
+            "field": "area",
+            // campo que é usado para gerar lista de intes facetados no auto_com
+            "facet_field" : "area_exact"
+           } ,
+          "type": "string"
+        },
+        {
+          "get_from_solr_field": "instituicao",
+          "label": "Instituições",
+          "operators": ["equal", "not_equal"],
+          "input": "autocomplete",
+          "solr_params": {
+            "q" : "*:*",
+            "fl" : "*",
+            "rows": "5",
+            "field": "instituicao",
+            "facet_field": "instituicao_exact"
+           } ,
+          "type": "string"
+        },
+
+        {
+          "get_from_solr_field": "instituicao_colaboracao",
+          "label": "Instituição Colaboração",
+          "operators": ["equal", "not_equal"],
+          "input": "autocomplete",
+          "solr_params": {
+            "q" : "*:*",
+            "fl" : "*",
+            "rows": "5",
+            "field": "instituicao_colaboracao",
+            "facet_field": "instituicao_colaboracao_exact"
+           } ,
+          "type": "string"
+        },
+
+
+        {
+          "get_from_solr_field": "pesquisadores",
+          "label": "Pesquisador",
+          "operators": ["equal", "not_equal"],
+          "multiple": true,
+          "input": "autocomplete",
+          "solr_params": {
+            "q" : "*:*",
+            "fl" : "*",
+            "rows": "20",
+            "field": "pesquisadores",
+            "facet_field": "pesquisadores_exact"
+           },
+          "type": "string"
+        },
+
+        {
+          "get_from_solr_field": "data_inicio_ano_exact",
+          "label": "Ano de início",
+          "operators": ["equal","not_equal", "less_or_equal", "greater_or_equal"],
+          "type": "integer",
+          "plugin" : "slider",
+          "plugin_config" : {
+            "min": 1989,
+            "max":2020,
+            "value":2017
+          }
+        },
+        {
+          "get_from_solr_field": "data_termino_ano_exact",
+          "label": "Ano de término",
+          "operators": ["equal","not_equal", "less_or_equal", "greater_or_equal"],
+          "type": "integer",
+          "plugin" : "slider",
+          "plugin_config" : {
+            "min": 1989,
+            "max":2020,
+            "value":2017
+          }
+        }
+      ]
+    },
+
+
+"DOCS_SNIPPET":{
+    //"considera o primeiro item da lista como valor default"
+    "rows": 5,
+    "rows_options": [5,20,40,50],
+    "template": "solr_front/sample/snippets/docs_snippet.html",
+    "fields": ["html_search_pt"],
+    "sort_fields":[
+      {"label":"Por data (descrescente)", "solr_sort":"data_inicio desc"},
+      {"label":"Por data (crescente)", "solr_sort":"data_inicio asc"}
+    ]
+  },
+
+
+  "EXPORT_DATA":{
+    //"campos do solr que iram ser exportados em arquivo, fields devem ser docvalues"
+    "export_fields" : ["csv"],
+    //"campo usado para ordenar resultados"
+    "export_sort_by" : "csv" ,
+    //"campo usado para definir operador de ordenação"
+    "export_sort_op" : "asc",
+    //"limita numera maximo de documentos a serem exportados"
+    "max_rows" : 10000,
+    // "Caso haja um unico campo pre-gerado para relatorio com todos os dados em formato csv, indicar o nome do campo."
+    "report_field" : "csv",
+    // "Caso seja determinado um campo pre-gerado acima, pode-se listar o nome das colunas. Caso contrario as colunas irao sem nome."
+    "column_names": ["N. Processo",
+               "Título (Português)",
+               "Título (Inglês)",
+               "Beneficiário",
+               "Instituição",
+               "Cidade Instituição",
+               "Instituição Parceira",
+               "Empresa",
+               "Município",
+               "Pesquisador Responsável",
+               "Pesquisadores Principais",
+               "Supervisor",
+               "Local de Pesquisa",
+               "Pesquisador Visitante",
+               "Instituição do Pesquisador Visitante",
+               "Linha de Fomento",
+               "Grande Área do Conhecimento",
+               "Área do Conhecimento",
+               "Subárea do Conhecimento",
+               "Assuntos",
+               "Data de Início",
+               "Data de Término",
+               "Acordo(s)/Convênio(s) de Cooperação com a FAPESP",
+               "Instituições no Exterior",
+               "Pesquisador responsável no exterior",
+               "Resumo (Português)",
+               "Resumo (Inglês)",
+               "Processos Vinculados"],
+
+  // "Colunas extras para o caso de algum controle de acesso etc."
+  "extra_column_names" :["Valor Concedido",
+              "Valor Desembolsado",
+              "Situação",
+              "Curriculo Lattes (Responsavel)",
+              "GoogleMyCitations (Responsavel)",
+              "ResearcherID (Responsavel)",
+              "Orcid (Responsavel)",
+              "Curriculo Lattes (Beneficiário)",
+              "GoogleMyCitations (Beneficiário)",
+              "ResearcherID (Beneficiário)",
+              "Orcid (Beneficiário)"]
+  }
+}

@@ -1,0 +1,162 @@
+<section class="box pa0">
+	<header class="bv_header" style="overflow:initial;">
+    <span class="bv_h1">
+      <a class="fa_angle_link" style="cursor:pointer;">
+        <span style="color:white;">Série temporal por linhas de fomento e por áreas do conhecimento 2</span>
+        <i class="fa fa-angle-up fa_angle_Style" style="float:right;"></i>
+      </a>
+    </span>
+	</header>
+
+	<div id="barchart_financeiro_div" class="content">
+		<div class="svg_divs svg-container" id="barchart_financeiro"></div>
+    <div class="filters">
+      <div>
+        <div style="padding-left: 7px"><h3>Selecione o tipo de visualização</h3></div>
+				<form>
+        <table class="filtros_grafico">
+          <tr>
+            <td ><input type="radio" id="rd_bf_tudo" name="radio_group" value="tudo" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'tudo', default_barchart_data)"/> Simplificada</td>
+          </tr>
+
+          <tr>
+            <td ><input type="radio" id="rd_bf_lfa" name="radio_group" value="tudo" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'lfa', default_barchart_data)"/> Linhas de fomento agrupadas</td>
+          </tr>
+          {% if not limitar %}
+          {% endif %}
+          <tr>
+            <td><input type="radio" id="rd_bf_lfs" name="radio_group" value="lf" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'lfs', default_barchart_data)"/> Linhas de fomento classificadas segundo vigência</td>
+          </tr>
+          <tr>
+            <td ><input type="radio" id="rd_bf_ac" name="radio_group" value="ac"  onChange="callGetRadioValue('bf', getSvgObj_BF(),  'ac', default_barchart_data)"/> Visualizar áreas de conhecimento</td>
+          </tr>
+          {% if vinculados %}
+          <tr>
+            <td ><input type="radio" id="rd_bf_vinc" name="radio_group" value="vinc" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'vinc')"/>Mostrar processos vinculados</td>
+          </tr>
+          {% endif %}
+
+        </table>
+			</form>
+      </div>
+    </div>
+	</div>
+</section>
+
+<script>
+
+//variaveis iniciais
+
+	  var margin = {top: 15, right: 30, bottom: 250, left: 90},
+	      width = 960 - margin.left - margin.right,
+	      height = 500 - margin.top - 60;
+
+	  // var x = d3.scale.ordinal()
+	      // .rangeRoundBands([0, width]);
+
+	  x = d3.time.scale()
+	     .range([0, width]);
+
+	  y = d3.scale.linear()
+	      .rangeRound([height, 0]);
+
+	  var z = d3.scale.category10();
+
+	  var xAxis = d3.svg.axis()
+	      .ticks(d3.time.years, 1)
+	      .scale(x)
+	      .orient("bottom")
+	      // .tickFormat(d3.time.format("%b"));
+
+	  var yAxis = d3.svg.axis()
+	      .scale(y)
+	      .orient("left")
+	      .tickFormat(d3.format(".2s"));
+
+	  var tip = d3.tip()
+	    .attr('class', 'd3-tip')
+	    .offset([-10, 0])
+	    .html(function(d) {
+	      if (d.label) {
+	        return "<strong>" + d.label + "</strong><p>&nbsp;</p><span style='color:white'><b4>" +
+	        d.y.formatMoney(2, "R$", ".", ",") + " (" + d.pct + "%)</span>";
+	      }
+	      else{
+	        return "<span style='color:white'><b4>" +
+	        d.y.formatMoney(2, "R$", ".", ",") + "</span>";
+	      }
+	    })
+
+			function getSvgObj_BF(){
+  	    return svg
+  	  }
+
+			var svg = d3.select("#barchart_financeiro")
+					.attr("style", "padding-bottom: " + Math.ceil(svg_height * 100 / svg_width) + "%")
+					.append("svg")
+					.attr("viewBox", "0 0 " + svg_width + " " + svg_height)
+					.attr("preserveAspectRatio", "xMinYMin meet")
+					.classed("svg-content", true)
+					.attr("border",1)
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+		  var svg_width = width + margin.left + margin.right;
+		  var svg_height = height + margin.top + margin.bottom;
+
+			function getColors(){
+		    return  ["#0000FF", "#B40431"]
+		  }
+			var area_conhecimento_color =  ["#B08BEB", "#3EA0DD", "#FAA586", "#4661EE", "#8FAABB", "#F5A52A", "#23BFAA", "#1BCDD1", "#EC5657"]
+			var default_color =  ["#2E64FE", "#0000FF", "#DF0101", "#B40431", "#FFBF00", "#FF8000"]
+
+			{% comment %}
+		  Precisa fazer a conversao de de array do django para o javascript senao dah problema na acentuacao
+		  {% endcomment %}
+
+		  var fomentos = []
+		  {% for  key, value in default_pizza_dict.items %}
+		    fomentos.push({'label':'{{ key }}', 'qt':Number({{ value.total }})})
+		  {% endfor %}
+
+		  var areas = []
+		  {% for  key, value in area_conhecimento_pizza_dict.items %}
+		    areas.push({'label':'{{ key }}', 'qt':Number({{ value.total }})})
+		  {% endfor %}
+
+
+var fq = "{{query_facet.fq|safe}}"
+var q = '{{query_facet.query_string|safe}}'
+var selected_facets ="{{query_facet.selected_facets|safe}}"
+$.ajax({
+	url: "/{{sigla_idioma}}/data_graphics/",
+	method:'POST',
+	dataType:"json",
+	data: {q:q,fq:fq, selected_facets:selected_facets, grafico:'barchart_financeiro', csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val()},
+	success: function(resultado){
+
+	  default_barchart_data = resultado['by_fomento']
+	  area_conhecimento_barchart_data = resultado['by_area']
+
+	  /*
+	   * ATENCAO!!! Incluindo um ano a mais para adequar o dominio do eixo X.
+	   * Como a data eh apresentada entre os ticks, eh necessario acrescentar um tick a mais.
+	    console.log(default_barchart_data)
+	  */
+	  var prox_ano = parseInt(default_barchart_data[default_barchart_data.length - 1].Data) + 1;
+	  default_barchart_data.push({'1':0, '2':0, '3':0, '4':0, '5':0, '6':0, 'Data':prox_ano.toString(), 'Total':0})
+	  area_conhecimento_barchart_data.push({'1':0, '2':0, '3':0, '4':0, '5':0, '6':0, 'Data':prox_ano.toString(), 'Total':0})
+
+
+	  // console.log(area_conhecimento_barchart_data)
+	  callGetRadioValue('bf', getSvgObj_BF(), 'tudo', default_barchart_data)
+
+	  svg.call(tip);
+	  //adicionar_eixos(svg, height, 0, xAxis, yAxis)
+	  svb_border(svg, height, width)
+	  document.getElementById('rd_bf_tudo').checked = true;
+
+	}
+})
+</script>

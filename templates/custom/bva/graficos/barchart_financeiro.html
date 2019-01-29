@@ -1,0 +1,210 @@
+
+
+	<div class="graficos_interativos" class="grid">
+	<h2 class="title_primary">Gráfico financeiro - Série temporal por linha de fomento</h2>
+
+	<div id="barchart_financeiro_div" style="position: relative; top:10px">
+		<div class="svg_divs svg-container" id="barchart_financeiro"></div>
+    <div class="filters" style="padding-bottom:20px">
+      <div>
+        <div style="padding-left: 7px"><h3>Selecione o tipo de visualização</h3></div>
+				<form>
+        <table class="filtros_grafico">
+          <tr>
+            <td ><input type="radio" id="rd_bf_tudo" name="radio_group" value="tudo" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'tudo', default_barchart_data)"/> Simplificada (Com vinculados)</td>
+          </tr>
+					<tr id="tr_vinculados" style="display:none;">
+            <td ><input type="radio" id="rd_bf_vinc" name="radio_group" value="vinc" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'vinc')"/> Detalhar vinculados</td>
+          </tr>
+          <tr>
+            <td ><input type="radio" id="rd_bf_lfa" name="radio_group" value="tudo" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'lfa', default_barchart_data)"/> Linhas de fomento agrupadas (Sem vinculados)</td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="rd_bf_lfs" name="radio_group" value="lf" checked="checked" onChange="callGetRadioValue('bf', getSvgObj_BF(), 'lfs', default_barchart_data)"/> Linhas de fomento classificadas segundo vigência</td>
+          </tr>
+					{% comment %}
+          <tr>
+            <td ><input type="radio" id="rd_bf_ac" name="radio_group" value="ac"  onChange="callGetRadioValue('bf', getSvgObj_BF(),  'ac', default_barchart_data)"/> Visualizar áreas de conhecimento</td>
+          </tr>
+					{% endcomment %}
+
+
+        </table>
+			</form>
+      </div>
+    </div>
+	</div>
+
+
+
+
+<script>
+
+//variaveis iniciais
+
+	  var margin = {top: 15, right: 30, bottom: 250, left: 90},
+	      width = 960 - margin.left - margin.right,
+	      height = 500 - margin.top - 60;
+
+	  // var x = d3.scale.ordinal()
+	      // .rangeRoundBands([0, width]);
+
+	  x = d3.time.scale()
+	     .range([0, width]);
+
+	  y = d3.scale.linear()
+	      .rangeRound([height, 0]);
+
+	  var z = d3.scale.category10();
+
+	  var xAxis = d3.svg.axis()
+	      .ticks(d3.time.years, 1)
+	      .scale(x)
+	      .orient("bottom")
+	      // .tickFormat(d3.time.format("%b"));
+
+	  var yAxis = d3.svg.axis()
+	      .scale(y)
+	      .orient("left")
+	      .tickFormat(d3.format(".2s"));
+
+	  var tip = d3.tip()
+	    .attr('class', 'd3-tip')
+	    .offset([-10, 0])
+	    .html(function(d) {
+	      if (d.label) {
+	        return "<strong>" + d.label + "</strong><p>&nbsp;</p><span style='color:white'><b4>" +
+	        d.y.formatMoney(2, "R$", ".", ",") + " (" + d.pct + "%)</span>";
+	      }
+	      else{
+	        return "<span style='color:white'><b4>" +
+	        d.y.formatMoney(2, "R$", ".", ",") + "</span>";
+	      }
+	    })
+
+			var svg_width = width + margin.left + margin.right;
+		  var svg_height = height + margin.top + margin.bottom;
+
+			var svgSolrFrontBarChartFinanceiro = d3.select("#barchart_financeiro")
+					.attr("style", "padding-bottom: " + Math.ceil(svg_height * 100 / svg_width) + "%")
+					.append("svg")
+					.attr("viewBox", "0 0 " + svg_width + " " + svg_height)
+					.attr("preserveAspectRatio", "xMinYMin meet")
+					.classed("svg-content", true)
+					.attr("border",1)
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			function getSvgObj_BF(){
+  	    return svgSolrFrontBarChartFinanceiro
+  	  }
+
+
+
+			function getColors(){
+		    return  ["#0000FF", "#B40431"]
+		  }
+			var area_conhecimento_color =  ["#B08BEB", "#3EA0DD", "#FAA586", "#4661EE", "#8FAABB", "#F5A52A", "#23BFAA", "#1BCDD1", "#EC5657"]
+			var default_color =  ["#2E64FE", "#0000FF", "#DF0101", "#B40431", "#FFBF00", "#FF8000"]
+
+			{% comment %}
+		  Precisa fazer a conversao de de array do django para o javascript senao dah problema na acentuacao
+		  {% endcomment %}
+
+		  var fomentos = []
+		  {% for  key, value in default_pizza_dict.items %}
+		    fomentos.push({'label':'{{ key }}', 'qt':Number({{ value.total }})})
+		  {% endfor %}
+
+		  var areas = []
+		  {% for  key, value in area_conhecimento_pizza_dict.items %}
+		    areas.push({'label':'{{ key }}', 'qt':Number({{ value.total }})})
+		  {% endfor %}
+
+
+
+			function check_fomento(fomento_status_facet, level){
+				if (level == 0 ){ // Processos pai
+					if (fomento_status_facet ==	"Auxílio à pesquisa em andamento"){ return '1'}
+					if (fomento_status_facet ==	"Auxílio à pesquisa concluído"){ return '2'}
+					if (fomento_status_facet ==	"Bolsa no país em andamento"){ return '3'}
+					if (fomento_status_facet ==	"Bolsa no país concluída"){ return '4'}
+					if (fomento_status_facet ==	"Bolsa no exterior em andamento"){ return '5'}
+				 	if (fomento_status_facet ==	"Bolsa no exterior concluída"){ return '6'}
+				}
+				else{ // Processos filho
+					$("#tr_vinculados").show();
+					if (fomento_status_facet ==	"Auxílio à pesquisa em andamento"){ return '18'}
+					if (fomento_status_facet ==	"Auxílio à pesquisa concluído"){ return '19'}
+					if (fomento_status_facet ==	"Bolsa no país em andamento"){ return '20'}
+				 	if (fomento_status_facet ==	"Bolsa no país concluída"){ return '21'}
+					if (fomento_status_facet ==	"Bolsa no exterior em andamento"){ return '22'}
+					if (fomento_status_facet ==	"Bolsa no exterior concluída"){ return '23'}
+				}
+			 }
+
+			function inicializa_ano_obj(ano){
+				ano_obj = {'Data':ano}
+				var x = 1;
+				while (x <= 24){
+					ano_obj[x.toString()] = 0
+					x += 1;
+					ano_obj['Total'] = 0
+				}
+
+				return ano_obj
+			}
+
+			function drawBarChartFinanceiro(resultado){
+			 	default_barchart_data = []
+				resultado = JSON.parse(resultado['content'])
+
+				anos = []
+				for (ano in resultado){
+					anos.push(ano)
+				}
+
+				var ano_inicial = 1991;
+				var d = new Date();
+				var ano_agora = d.getFullYear();
+				while (ano_inicial <= ano_agora){
+					if (anos.indexOf(ano_inicial.toString()) === -1){
+						anos.push(ano_inicial.toString())
+					}
+					ano_inicial++
+				}
+				anos.sort()
+
+				for (ano_idx = 0; ano_idx < anos.length; ano_idx++) {
+					ano_obj = inicializa_ano_obj(anos[ano_idx])
+					if (anos[ano_idx] in resultado){
+						for (i = 0; i < resultado[anos[ano_idx]]['Elemens'].length; i++) {
+							fomento = check_fomento(resultado[anos[ano_idx]]['Elemens'][i]['fomento_status_facet'], resultado[anos[ano_idx]]['Elemens'][i]['level'])
+							ano_obj[fomento.toString()] += resultado[anos[ano_idx]]['Elemens'][i]['sum(valor_concedido)']
+							ano_obj['Total'] += resultado[anos[ano_idx]]['Elemens'][i]['sum(valor_concedido)']
+						}
+					}
+					default_barchart_data.push(ano_obj)
+				}
+
+
+				// ATENCAO!!! Incluindo um ano a mais para adequar o dominio do eixo X.
+				// Como a data eh apresentada entre os ticks, eh necessario acrescentar um tick a mais.
+				// console.log(default_barchart_data)
+
+				var prox_ano = parseInt(default_barchart_data[default_barchart_data.length - 1].Data) + 1;
+				default_barchart_data.push({'1':0, '2':0, '3':0, '4':0, '5':0, '6':0, 'Data':prox_ano.toString(), 'Total':0})
+				// area_conhecimento_barchart_data.push({'1':0, '2':0, '3':0, '4':0, '5':0, '6':0, 'Data':prox_ano.toString(), 'Total':0})
+
+				// console.log(default_barchart_data)
+				// debugger;
+				// console.log(area_conhecimento_barchart_data)
+				callGetRadioValue('bf', getSvgObj_BF(), 'tudo', default_barchart_data)
+
+				svgSolrFrontBarChartFinanceiro.call(tip);
+				//adicionar_eixos(svg, height, 0, xAxis, yAxis)
+				svb_border(svgSolrFrontBarChartFinanceiro, height, width)
+				document.getElementById('rd_bf_tudo').checked = true;
+			}
+
+</script>

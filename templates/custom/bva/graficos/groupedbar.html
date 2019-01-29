@@ -1,0 +1,224 @@
+<section class="box pa0">
+  <header class="bv_header">
+    <span class="bv_h1">
+      <a class="fa_angle_link" style="cursor:pointer;">
+        <span style="color:white;">
+          {% if sigla_idioma = 'pt'%}
+            Histórico do fomento, por ano de início 2
+          {% elif sigla_idioma = 'en'%}
+            Evolution of grants awarded, by year
+          {% endif %}
+        </span>
+        <i class="fa fa-angle-up fa_angle_Style" style="float:right;"></i>
+      </a>
+    </span>
+	</header>
+
+	<div id="barras_historico_vinc_div" class="content">
+		<div class="svg_divs svg-container" id="barras_historico_vinc"></div>
+
+    {% if vinculados %}
+    <div class="filters">
+    {% else %}
+    <div style="display: none;">
+    {% endif %}
+      <div>
+        <form>
+        <table>
+          <tr>
+            <td><input type="checkbox" id="chkb_gb_vinc" name="chkb_gb_vinc" value="vinc" onclick="vinc(getSvgObj_GB());"/>
+                {% if sigla_idioma == 'en'%}Show associated processes
+                {% else %}Mostrar processos vinculados
+                {% endif %}
+            </td>
+          </tr>
+        </table>
+      </form>
+      </div>
+    </div>
+
+	</div>
+</section>
+
+
+<script>
+
+// Escopo Global
+var margin = {top: 15, right: 15, bottom: 110, left: 90},
+  width = 960 - margin.left - margin.right,
+  height = 500 - margin.top - 40;
+
+var svg_width = width + margin.left + margin.right;
+var svg_height = height + margin.top + margin.bottom;
+
+var svg_barras_historico_vinc = d3.select("#barras_historico_vinc")
+    .attr("style", "padding-bottom: " + Math.ceil(svg_height * 100 / svg_width) + "%")
+    .append("svg")
+    .attr("viewBox", "0 0 " + svg_width + " " + svg_height)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content", true)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+function getSvgObj_GB(){
+  return svg_barras_historico_vinc
+}
+
+// Escopo de funcao
+var groupedbar = function(svg, data, dict_elemens){
+
+
+  var x0 = d3.time.scale()
+      .range([0, width]);
+  var x1 = d3.scale.ordinal();
+  var y = d3.scale.linear()
+      .range([height, 0]);
+
+  var default_apresentacao_dict =["#0000FF", "#B40431", "#3399FF", "#FF6600"]
+  var color_legenda = ["#0000FF", "#B40431", "#3399FF", "#FF6600"]
+  var color = d3.scale.ordinal()
+    .range(default_apresentacao_dict);
+
+  var tip_groupedbar = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+      return "<strong>" + d.ano + "</strong><p>&nbsp;</p><span style='color:white'>" +
+      f_tips[d.name] + ": " + d.value + "</span>";
+    })
+
+
+
+  svg.call(tip_groupedbar);
+
+  var fomento_existe = {1:0, 2:0, 3:0, 4:0}
+  var prox_ano = parseInt(data[data.length - 1][0]) + 1;
+  data.push([prox_ano.toString(), 0, 0, 0, 0])
+  data.forEach(function(d) {
+    d.ages = dict_elemens.map(function(name) { return {name: name, value: +d[name], ano: d[0]};});
+    var idx = 1;
+    while (idx<5){
+      if (d[idx] > 0){
+        fomento_existe[idx] = 1
+      }
+      idx++;
+    }
+  });
+  var ageNames = dict_elemens
+
+
+  x0.domain(d3.extent(data, function(d) {return new Date(d[0])} ));
+  manual_rangeband = width/data.length
+  x1.domain(ageNames).rangeRoundBands([2, manual_rangeband]);
+  y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
+
+  monta_grid(getSvgObj_GB(), '', '', x0, y)
+
+  var xAxis = d3.svg.axis()
+      .ticks(d3.time.years, 1)
+      .scale(x0)
+      .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left")
+      .tickFormat(d3.format(".2s"));
+
+  var state = svg.selectAll(".state")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "state")
+      .attr("transform", function(d) {return "translate(" + x0(new Date(d[0]) ) + ",0)"; });
+
+  state.selectAll("rect")
+      .data(function(d) { return d.ages; })
+    .enter().append("rect")
+      //.attr("width", x1.rangeBand())
+      .attr("width", 7)
+      .attr("x", function(d) { return x1(d.name); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .style("fill", function(d) { return color(d.name); })
+      .on('mouseover', function(d){
+        showTip(this, tip_groupedbar, d)
+       })
+      .on('mouseout', tip_groupedbar.hide);
+
+
+
+{% if sigla_idioma = 'pt'%}
+  var texto_y = 'Quantidade de Auxílios/Bolsas iniciados no ano';
+  var fomentos = [{'id':'1', 'label': 'Auxílios à pesquisa', 'qt': 1},
+                            {'id':'2', 'label': 'Bolsas', 'qt': 1},
+                            {'id':'3', 'label': 'Auxílios vinculados', 'qt': 1},
+                            {'id':'4', 'label': 'Bolsas vinculadas', 'qt': 1}
+                            ]
+
+
+  var f_tips = {1:'Auxílios à pesquisa',
+                2:'Bolsas',
+                3:'Auxílios vinculados',
+                4:'Bolsas vinculadas'}
+{% elif sigla_idioma = 'en'%}
+  var texto_y = 'Number of contracted research grants/scholarships, by year';
+  var fomentos = [{'id':'1', 'label': 'Research grants', 'qt': 1},
+                  {'id':'2', 'label': 'Scholarships', 'qt': 1},
+                  {'id':'3', 'label': 'Linked Research grants', 'qt': 1},
+                  {'id':'4', 'label': 'Linked Scholarships', 'qt': 1}
+                 ]
+  var f_tips = {1:'Research grants',
+                2:'Scholarships',
+                3:'Linked Research grants',
+                4:'Linked Scholarships'}
+{% endif %}
+
+
+for (var key in fomento_existe) {
+  if (fomento_existe[key] == 0){
+     fomentos[key-1] = {};
+    }
+  }
+
+  // if (!document.getElementById('chkb_gb_vinc').checked){
+    // fomentos.splice(2, 2)
+  // }
+
+  criar_legenda(svg, '', fomentos, color_legenda, 500, 465);
+  svb_border(svg, height, width)
+
+  adicionar_eixos(svg, height, 25, xAxis, yAxis)
+
+  textosEixos(svg, '', texto_y)
+
+  return getSvgObj_GB()
+}
+
+
+function vinc(getSvgObj){
+  var fq = "{{query_facet.fq|safe}}"
+  var q = '{{query_facet.query_string|safe}}'
+  var selected_facets ="{{query_facet.selected_facets|safe}}"
+  $.ajax({
+    url: "/{{sigla_idioma}}/data_graphics/",
+    method:'POST',
+    dataType:"json",
+    data: {q:q,fq:fq, selected_facets:selected_facets, grafico:'groupedbar', csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val()},
+    success: function(resultado){
+      console.log(resultado)
+      var data = resultado['format_compatible']
+      var dict_elemens = [1,2]
+      getSvgObj.selectAll("*").remove();
+      groupedbar(getSvgObj, data, dict_elemens)
+    }
+  })
+
+}
+
+
+
+window.onload = function() {
+  document.getElementById('chkb_gb_vinc').checked = false;
+  vinc(getSvgObj_GB());
+};
+
+</script>

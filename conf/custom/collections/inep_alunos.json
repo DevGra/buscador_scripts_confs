@@ -1,0 +1,152 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+
+{
+  "COLLECTION":{
+        "label": "INEP - Alunos",
+        "omite_secoes": ["refine", "busca", "documentos", "related_collections", "pivot_table", "wordcloud", "gather_nodes"],
+        "campo_dinamico_busca": "cross_collection_inep_alunos"
+  },
+
+  "FACETS":[
+      {"groupBy": {"id": "sobre", "label": "Sobre a pesquisa", "order": 3},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "ANO_facet", "label": "Ano de vigência do INEP"}]}
+             ]},
+
+            {"groupBy": {"id": "aluno", "label": "Dados pessoais", "order": 1},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "NU_IDADE_ALUNO", "label": "Idade"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "NU_ANO_ALUNO_NASC", "label": "Ano de nascimento"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "DS_COR_RACA_ALUNO", "label": "Cor/Raça"}]},
+                 {"label": "", "render": "halfPieChart", "facets": [{"chave": "DS_SEXO_ALUNO", "label": "Sexo"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CO_NACIONALIDADE_ALUNO", "label": "Nacionalidade"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "GEOGRAFICO_ALUNO_NASC_facet", "label": "Regiao de nascimento"}]}
+             ]},
+
+            {"groupBy": {"id": "inf_acad", "label": "Informações do aluno", "order": 2},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "ANO_INGRESSO", "label": "Ano de ingresso"}]},
+                 {"label": "", "render": "halfPieChart",
+                  "facets": [{"chave": "CO_NIVEL_ACADEMICO", "label": "Nível acadêmico"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CO_GRAU_ACADEMICO", "label": "Grau acadêmico"}]},
+                 {"label": "", "render": "halfPieChart",
+                  "facets": [{"chave": "IN_ACESSO_PORTAL_CAPES", "label": "Acesso ao portal Capes"}]},
+                 {"label": "", "render": "halfPieChart",
+                  "facets": [{"chave": "CO_MODALIDADE_ENSINO", "label": "Modalidade de ensino"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CO_TURNO_ALUNO", "label": "Turno do aluno"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "CO_ALUNO_SITUACAO", "label": "Situação do aluno"}]}
+             ]},
+
+            {"groupBy": {"id": "ies_aluno", "label": "Instituição de ensino superior", "order": 2},
+             "facetGroup": [
+                 //{"label": "", "render": "barChart_1", "facets": [{"chave": "MANT_IES", "label": "Mantenedora/IES"}]},
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "GEOGRAFICO_IES_facet", "label": "Localização"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "DS_CATEGORIA_ADMINISTRATIVA", "label": "Categoria Administrativa"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "DS_ORGANIZACAO_ACADEMICA", "label": "Organização Acadêmica"}]},
+                 {"label": "", "render": "halfPieChart",
+                  "facets": [{"chave": "IN_CAPITAL_IES", "label": "IES localizada na capital?"}]}
+             ]}
+
+            /* {"groupBy": {"id": "ocde", "label": "OCDE", "order": 1},
+             "facetGroup": [
+                 {"label": "", "render": "barChart_1", "facets": [{"chave": "NO_OCDE", "label": "OCDE"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "NO_OCDE_AREA_GERAL", "label": "OCDE - Área geral"}]},
+                 {"label": "", "render": "barChart_1",
+                  "facets": [{"chave": "NO_OCDE_AREA_DETALHADA", "label": "OCDE - Área detalhada"}]}
+             ]} */
+    ],
+
+    "OUTCOMES": [],
+
+
+  "SANKEY_CHART":{
+        "default_level_1": {"value": "SGL_UF_IES", "label": "IES - UF"},
+        "default_level_2": {"value": "DS_CATEGORIA_ADMINISTRATIVA", "label": "IES - Categoria Administrativa"},
+        "options": [
+            {"value": "ANO_INGRESSO", "label": "Ano de ingresso"},
+            {"value": "CO_TURNO_ALUNO", "label": "Turno do aluno"},
+            {"value": "CO_ALUNO_SITUACAO", "label": "Situação do aluno"},
+
+            {"value": "CO_MODALIDADE_ENSINO", "label": "Modalidade de ensino"},
+            {"value": "CO_GRAU_ACADEMICO", "label": "Grau acadêmico"},
+            {"value": "CO_NIVEL_ACADEMICO", "label": "Nível acadêmico"},
+
+            {"value": "SGL_UF_IES", "label": "IES - UF"},
+            {"value": "NO_REGIAO_IES", "label": "IES - Região"},
+            {"value": "DS_ORGANIZACAO_ACADEMICA", "label": "IES - Organização Acadêmica"},
+            {"value": "DS_CATEGORIA_ADMINISTRATIVA", "label": "IES - Categoria Administrativa"},
+            {"value": "IN_BOLSA_PESQUISA", "label": "IES - Bolsa pesquisa"}
+            //{"value": "NO_OCDE_AREA_GERAL", "label": "OCDE - Geral"}
+
+        ]
+  },
+
+  "BUBBLE_CHART": {
+        "default_level_1": {"value": "NO_OCDE_AREA_GERAL", "label": "OCDE - Geral"},
+        "default_level_2": {"value": "DS_CATEGORIA_ADMINISTRATIVA", "label": "IES - Categoria Administrativa"},
+        "options": [
+            {"value": "ANO_INGRESSO", "label": "Ano de ingresso"},
+            {"value": "CO_TURNO_ALUNO", "label": "Turno do aluno"},
+            {"value": "CO_ALUNO_SITUACAO", "label": "Situação do aluno"},
+            {"value": "CO_MODALIDADE_ENSINO", "label": "Modalidade de ensino"},
+            {"value": "CO_GRAU_ACADEMICO", "label": "Grau acadêmico"},
+            {"value": "CO_NIVEL_ACADEMICO", "label": "Nível acadêmico"},
+            {"value": "SGL_UF_IES", "label": "IES - UF"},
+            {"value": "NO_REGIAO_IES", "label": "IES - Região"},
+            {"value": "DS_ORGANIZACAO_ACADEMICA", "label": "IES - Organização Acadêmica"},
+            {"value": "DS_CATEGORIA_ADMINISTRATIVA", "label": "IES - Categoria Administrativa"},
+            {"value": "IN_BOLSA_PESQUISA", "label": "IES - Bolsa pesquisa"}
+            //{"value": "NO_OCDE_AREA_GERAL", "label": "OCDE - Geral"}
+        ]
+    },
+    "BOXPLOT_CHART":{
+          "default_level_1": {"value": "REG_NASCIMENTO", "label": "Região de nascimento"},
+          "default_level_2": {"value": "NU_IDADE_ALUNO", "label": "Idade"},
+          "options_x": [
+              {"value": "REG_NASCIMENTO", "label": "Região de nascimento"},
+              {"value": "DS_SEXO_ALUNO", "label": "Sexo"}
+          ],
+          "options_y": [
+              {"value": "NU_IDADE_ALUNO", "label": "Idade"}
+          ]
+    },
+
+    "MULTILEVEL_BARCHART_1":{
+        "default_level_1": "CO_TURNO_ALUNO",
+        "default_level_2": "NO_REGIAO_IES",
+        "y_axis": [
+            //{"value": "ANO_facet", "label": "Ano da pesquisa"},
+            {"value": "NO_MANTENEDORA", "label": "Mantenedora"},
+            {"value": "SGL_UF_IES", "label": "Estado da sede administrativa"},
+            {"value": "NO_REGIAO_IES", "label": "Região da sede administrativa"}
+
+        ],
+        "y_stratification": [
+            {"value": "ANO_INGRESSO", "label": "Ano de ingresso"},
+            {"value": "CO_NIVEL_ACADEMICO", "label": "Nível acadêmico"},
+            {"value": "CO_GRAU_ACADEMICO", "label": "Grau acadêmico"},
+            {"value": "IN_ACESSO_PORTAL_CAPES", "label": "Acesso ao portal Capes"},
+            {"value": "CO_MODALIDADE_ENSINO", "label": "Modalidade de ensino"},
+            //{"value": "QT_CARGA_HORARIA_INTEG", "label": "Carga horária"},
+            {"value": "CO_TURNO_ALUNO", "label": "Turno"},
+            {"value": "CO_ALUNO_SITUACAO", "label": "Situação do aluno"}
+
+        ]
+    }
+}

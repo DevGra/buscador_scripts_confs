@@ -1,0 +1,206 @@
+/*
+* This wont pass on a standard JSON Lint.
+* The JSON parser of this system will ignore everything between javascript comments,
+* in order to make things easier to write and test a configuration file.
+*/
+
+{
+  "COLLECTION":{
+    "label": "Pesquisadores FAPESP",
+    "omite_secoes": ["refine", "stackedbarchart", "pivot_table", "boxplot", "gather_nodes"],
+    "campo_dinamico_busca": "cross_collection_bv_pesquisadores"
+  },
+
+  "FACETS":[
+
+    {"groupBy": {"id": "proj", "label": "Projetos de Pesquisa", "order": 1},
+     "facetGroup": [
+       {"label": "", "render": "barChart_1", "facets": [{"chave": "bolsas_pt", "label": "Bolsas"}]},
+       {"label": "", "render": "barChart_1", "facets": [{"chave": "auxilio_pesquisa_pt", "label": "Auxílios à Pesquisa"}]}
+    ]},
+
+    {"groupBy": {"id": "inst", "label": "Instituições", "order": 2},
+     "facetGroup": [
+        {"label": "", "render": "barChart_1", "facets": [{"chave": "inst_facet", "label": "Instituição-sede de pesquisa"}]},
+        {"label": "", "render": "barChart_1", "facets": [{"chave": "inst_ext_facet", "label": "Instituições de ensino e pesquisa no exterior"}]}
+
+    ]},
+    {"groupBy": {"id": "areas", "label": "Área do conhecimento", "order": 3},
+     "facetGroup": [
+        {"label": "", "render": "barChart_1", "facets": [{"chave": "area_pt", "label": "Área do conhecimento"}]}
+    ]},
+
+    {"groupBy": {"id": "temp", "label": "Série Temporal", "order": 4},
+     "facetGroup": [
+        {"label": "", "render": "barChart_1", "facets": [{"chave": "ano_inicio", "label": "Ano de ínicio"}]},
+        {"label": "", "render": "barChart_1", "facets": [{"chave": "ano_termino", "label": "Ano de término"}]}
+
+    ]},
+
+    {"groupBy": {"id": "publi", "label": "Publicações oriundas de projetos de pesquisa", "order": 5},
+     "facetGroup": [
+        {"label": "", "render": "barChart_1", "facets": [{"chave": "publicacoes_cientificas_bool", "label": "Publicações Científicas"}]},
+        {"label": "", "render": "barChart_1", "facets": [{"chave": "publicacoes_academicas_bool", "label": "Publicações Acadêmicas"}]}
+    ]},
+
+    {"groupBy": {"id": "con_colab", "label": "Convênios / Colaborações internacionais", "order": 6},
+      "facetGroup": [
+       {"label": "", "render": "barChart_1", "facets": [{"chave": "geografico_colaboracao_facet", "label": "Geográfico - Colaborações internacionais"}]},
+       {"label": "", "render": "barChart_1", "facets": [{"chave": "geografico_convenio_facet", "label": "Geográfico - Convênios e Acordos"}]}
+
+    ]},
+
+    {"groupBy": {"id": "pesq", "label": "Pesquisador", "order": 7},
+    "facetGroup": [
+      {"label": "", "render": "barChart_1", "facets": [{"chave": "ano_nascimento_facet", "label": "Ano de Nascimento"}]},
+      {"label": "", "render": "barChart_1", "facets": [{"chave": "sexo", "label": "Gênero"}]},
+      //{"label": "", "render": "barChart_1", "facets": [{"chave": "nacionalidade", "label": "Nacionalidade (País)"}]},
+      {"label": "", "render": "barChart_1", "facets": [{"chave": "quantidade_processos_facet", "label": "Quantidade de projetos de pesquisa"}]}
+    ]}
+
+
+
+  ],
+
+  "OUTCOMES": [
+                {"label": "Pesquisadores (Beneficiário e/ou responsável)", "facet": {"*": ["*"]},
+                 "docs": {"url": "url_pt", "text": "snipet"}, "type": ["doc"], "colunas": 12, "order": 0},
+                {"label": "Com CV Lattes", "facet": {"cv_lattes": ["*"]}, "docs": {}, "type": ["main"], "order": 1},
+                {"label": "Com Researcher ID", "facet": {"researcherid": ["*"]}, "docs": {}, "type": ["main"], "order": 3},
+                {"label": "Com Google Citations", "facet": {"google_citations": ["*"]}, "docs": {}, "type": ["main"],
+                 "order": 4},
+                {"label": "Com ORCID", "facet": {"orcid": ["*"]}, "docs": {}, "type": ["main"], "order": 2}
+  ],
+
+  "SANKEY_CHART":null,
+  "BUBBLE_CHART": null,
+
+
+  "WORDCLOUD_CHART":{
+      "single_facet": {"value": "termos_pt_facet", "label": "Palavras-chave"},
+        "options": [
+            {"value": "termos_pt_facet", "label": "Palavras-chave"}
+          ]
+  },
+
+  "QUERY_BUILDER":{
+        "plugins" : ["bt-tooltip-errors"],
+        "filters" : [
+            {
+              "get_from_solr_field": "text",
+              "label": "Busca textual",
+              "operators": ["contains", "not_contains"],
+              "input": "text",
+              "type": "string"
+            },
+            {
+            "get_from_solr_field": "termos_pt_facet",
+            "label": "Palavras-chave",
+            "operators": ["contains", "not_contains"],
+            "input": "autocomplete",
+            "solr_params": {
+              "q" : "*:*",
+              "fl" : "*",
+              "rows": "20",
+              "field": "termos_pt",
+              "facet_field" : "termos_pt_facet"
+
+             } ,
+            "type": "string"
+          },
+          {
+          "get_from_solr_field": "resumo_cv",
+          "label": "Resumo",
+          "operators": ["contains", "not_contains"],
+          "input": "autocomplete",
+          "solr_params": {
+            "q" : "*:*",
+            "fl" : "*",
+            "rows": "20",
+            "field": "termos_pt",
+            "facet_field" : "termos_pt_facet"
+
+           } ,
+          "type": "string"
+        }
+
+        ]
+  },
+
+  "SANKEY_CHART":{
+      "default_level_1": {"value": "sexo", "label": "Gênero"},
+      "default_level_2": {"value": "ano_inicio", "label": "Início do projeto"},
+      "options": [
+          {"value": "sexo", "label": "Gênero"},
+          {"value": "ano_inicio", "label": "Início do projeto"},
+          {"value": "area_pt", "label": "Área do conhecimento"},
+          //{"value": "geografico_colaboracao_facet", "label": "Colab. exterior"},
+          {"value": "geografico_convenio_facet", "label": "Convênios/Acordos"},
+          {"value": "inst_facet", "label": "Instituição sede - TIpo"},
+          {"value": "inst_ext_facet", "label": "Instituição exterior - Tipo"}
+      ]
+  },
+
+
+
+  "BUBBLE_CHART":{
+      "default_level_1": {"value": "sexo", "label": "Gênero"},
+      "default_level_2": {"value": "ano_inicio", "label": "Início do projeto"},
+      "options": [
+          {"value": "sexo", "label": "Gênero"},
+          {"value": "ano_inicio", "label": "Início do projeto"},
+          {"value": "area_pt", "label": "Área do conhecimento"},
+          {"value": "geografico_colaboracao_facet", "label": "Colab. exterior"},
+          {"value": "geografico_convenio_facet", "label": "Convênios/Acordos"},
+          {"value": "inst_facet", "label": "Instituição sede - TIpo"},
+          {"value": "inst_ext_facet", "label": "Instituição exterior - Tipo"}
+      ]
+  },
+
+
+
+  "DOCS_SNIPPET":{
+    //"considera o primeiro item da lista como valor default"
+    "rows": 5,
+    "rows_options": [5,20,40,50],
+    "template": "solr_front/sample/snippets/docs_snippet.html",
+    "fields": ["snipet"],
+    "sort_fields":[
+      {"label":"Por nome (descrescente)", "solr_sort":"nome_sort desc"},
+      {"label":"Por nome (crescente)", "solr_sort":"nome_sort asc"}
+    ]
+  },
+
+
+
+
+  "EXPORT_DATA":{
+    //"campos do solr que iram ser exportados em arquivo, fields devem ser docvalues"
+    // "export_fields" : ["nome, nacionalidade, quantidade_processos, area_pt, termos_pt, inst_facet, inst_ext_facet, lattes, researcherid, google_citations, orcid"],
+    "export_fields" : ["nome_exact", "nacionalidade", "quantidade_processos", "cv_lattes", "researcherid", "google_citations", "orcid", "termos_pt_facet"],
+    //"campo usado para ordenar resultados"
+    "export_sort_by" : "nome_exact" ,
+    //"campo usado para definir operador de ordenação"
+    "export_sort_op" : "asc",
+    //"limita numera maximo de documentos a serem exportados"
+    "max_rows" : 100,
+    // "Caso haja um unico campo pre-gerado para relatorio com todos os dados em formato csv, indicar o nome do campo."
+    "report_field" : "",
+    // "Caso seja determinado um campo pre-gerado acima, pode-se listar o nome das colunas. Caso contrario as colunas irao sem nome."
+    "column_names": ["Nome",
+               "Nacionalidade",
+               "Processos FAPESP (qt)",
+               //"Áreas do conhecimento",
+               //"Instituição",
+               //"Inst. Exterior",
+               "Lattes",
+               "ResearcherID",
+               "Google Citations",
+               "ORCID",
+               "Palavras-chave"
+               ],
+
+  // "Colunas extras para o caso de algum controle de acesso etc."
+  "extra_column_names" :[]
+  }
+}
